@@ -15,13 +15,13 @@ namespace ITShop
     public class CheckoutModel : PageModel
     {
         private readonly IOrderData orderData;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
         private readonly IProductData productData;
 
         public List<OrderDetail> OrderDetails { get; set; }
         [BindProperty]
         public Order Order { get; set; }
-        public CheckoutModel(IOrderData orderData, UserManager<IdentityUser> userManager, IProductData productData)
+        public CheckoutModel(IOrderData orderData, UserManager<ApplicationUser> userManager, IProductData productData)
         {
             this.orderData = orderData;
             this.userManager = userManager;

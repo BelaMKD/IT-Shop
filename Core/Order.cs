@@ -19,7 +19,7 @@ namespace Core
         [Required]
         public string Country { get; set; }
         public string UserId { get; set; }
-        public IdentityUser User { get; set; }
+        public ApplicationUser User { get; set; }
         public List<OrderDetail> OrderDetails { get; set; }
         public Order()
         {

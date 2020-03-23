@@ -1,4 +1,5 @@
 ﻿using System;
+using Core;
 using Data;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;
@@ -15,7 +16,7 @@ namespace ITShop.Areas.Identity
         public void Configure(IWebHostBuilder builder)
         {
             builder.ConfigureServices((context, services) => {
-                services.AddIdentity<IdentityUser, IdentityRole>(options =>
+                services.AddIdentity<ApplicationUser, IdentityRole>(options =>
                 {
                     options.Password.RequireNonAlphanumeric = false;
                     options.Password.RequiredLength = 4;

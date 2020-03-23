@@ -6,7 +6,7 @@ using System;
 
 namespace Data
 {
-    public class ITShopDbContext : IdentityDbContext<IdentityUser>
+    public class ITShopDbContext : IdentityDbContext<ApplicationUser>
     {
         public ITShopDbContext(DbContextOptions<ITShopDbContext> options) : base(options)
         {
@@ -15,5 +15,6 @@ namespace Data
         public DbSet<Product> Products { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
+        public DbSet<Membership> Memberships { get; set; }
     }
 }

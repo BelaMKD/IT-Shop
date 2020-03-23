@@ -13,10 +13,10 @@ namespace ITShop
     public class OrdersModel : PageModel
     {
         private readonly IOrderData orderData;
-        private readonly UserManager<IdentityUser> userManager;
+        private readonly UserManager<ApplicationUser> userManager;
 
         public IEnumerable<Order> Order { get; set; }
-        public OrdersModel(IOrderData orderData, UserManager<IdentityUser> userManager)
+        public OrdersModel(IOrderData orderData, UserManager<ApplicationUser> userManager)
         {
             this.orderData = orderData;
             this.userManager = userManager;
