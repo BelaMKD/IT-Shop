@@ -1,0 +1,51 @@
+﻿@page
+@model ITShop.ShoppingCartModel
+@{
+    ViewData["Title"] = "ShoppingCart";
+}
+
+<h1>ShoppingCart</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Total</th>
+        </tr>
+    </thead>
+    @foreach (var cartItem in Model.CartItems)
+    {
+        <tr>
+            <td>
+                @cartItem.Product.Name
+            </td>
+            <td>@cartItem.Product.Price</td>
+            <td>
+                <form class="d-inline align-middle" method="post">
+                    <button class="btn" asp-page-handler="Minus" asp-route-id="@cartItem.Product.Id">-</button>
+                </form>
+                <span style="padding:1px 10px">@cartItem.Quantity</span>
+                <form class="d-inline align-middle" method="post">
+                    <button class="btn" asp-page-handler="Plus" asp-route-id="@cartItem.Product.Id">+</button>
+                </form>
+            </td>
+            <td>@(cartItem.Quantity * cartItem.Product.TotalPrice)</td>
+        </tr>
+    }
+    <tfoot style="visibility:@(!Model.CartItems.Any() ? "visible" : "hidden")">
+        <tr>
+            <td colspan="3">
+                Nothing to display.
+            </td>
+        </tr>
+    </tfoot>
+</table>
+<span class="alert alert-danger" style="visibility:@(Model.Message!=null ? "visible" : "hidden")">@Model.Message</span>
+
+<h3>Total pay:</h3>
+<h4>@Model.TotalPrice</h4>
+
+<a class="btn btn-success" asp-page="/Order/Checkout">Checkout</a>
+

@@ -1,0 +1,32 @@
+﻿@page
+@model ITShop.CheckoutModel
+@{
+    ViewData["Title"] = "Checkout";
+}
+
+<h1>Checkout</h1>
+
+<form method="post">
+    <input type="hidden" asp-for="Order.Id" />
+    <div class="row">
+        <div class="col">
+            <label asp-for="Order.FirstName"></label>
+            <input class="form-control" asp-for="Order.FirstName">
+        </div>
+        <div class="col">
+            <label asp-for="Order.LastName"></label>
+            <input class="form-control" asp-for="Order.LastName">
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <label asp-for="Order.City"></label>
+            <input class="form-control" asp-for="Order.City">
+        </div>
+        <div class="col">
+            <label asp-for="Order.Country"></label>
+            <input class="form-control" asp-for="Order.Country">
+        </div>
+    </div>
+    <button class="btn btn-success" type="submit">Order</button>
+</form>

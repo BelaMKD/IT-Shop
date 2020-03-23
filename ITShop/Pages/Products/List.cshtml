@@ -1,0 +1,57 @@
+﻿@page
+@model ITShop.ListModel
+@{
+    ViewData["Title"] = "List";
+}
+
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
+}
+
+@if (Model.Message!=null)
+{
+    <div class="alert alert-info" >@Model.Message</div>
+}
+
+<table class="table" id="tabela" style="margin-top:5%;">
+    <thead>
+        <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Discount</th>
+            <th scope="col">Total Price</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Category</th>
+            <th scope="col"></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model.Products)
+        {
+            <tr>
+                <td>@product.Name</td>
+                <td>$ @product.Price</td>
+                <td>@product.Discount.ToString("P")</td>
+                <td>$ @product.TotalPrice</td>
+                <td>@product.Quantity</td>
+                <td>@product.Category.Type</td>
+                <td>
+                    <a class="btn btn-primary" asp-page="./AddEdit" asp-route-id="@product.Id">Edit</a>
+                    <a class="btn btn-danger" asp-page="./Delete" asp-route-id="@product.Id">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<a class="btn btn-success" asp-page="./AddEdit">Add New Product</a>
+
+
+
+@section Scripts{ 
+    <script>
+        $(document).ready(function () {
+            $('#tabela').DataTable();
+        });
+    </script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.js"></script>
+}

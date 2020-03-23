@@ -1,0 +1,65 @@
+﻿@page
+@model ITShop.OrdersModel
+@{
+    ViewData["Title"] = "Orders";
+}
+
+@if (Model.Order?.Count() <= 0)
+{
+    <div>
+        <p>No Order so far! Go ahead and place some order.</p>
+    </div>
+    return;
+}
+
+<table class="table table-striped text-center">
+    <thead>
+        <tr>
+            <th>Billing Address</th>
+            <th>Order Summary</th>
+            <th>Total Ammount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Order)
+        {
+            <tr>
+                <td class="text-justify">
+                    <div>
+                        @order.FirstName @order.LastName,
+                    </div>
+                    <div>
+                        @order.City,
+                        @order.Country
+                    </div>
+                    <br />
+                    <div>
+                        @order.DateOrdered.ToString("dd/MM/yyyy")
+                    </div>
+                </td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                            @foreach (var item in order.OrderDetails)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Product.Name
+                                    </td>
+                                    <td>
+                                        @item.Product.TotalPrice.ToString("c") * @item.Quantity
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    @order.OrderTotal.ToString("c")
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
