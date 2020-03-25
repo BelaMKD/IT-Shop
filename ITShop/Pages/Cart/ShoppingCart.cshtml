@@ -36,16 +36,45 @@
     }
     <tfoot style="visibility:@(!Model.CartItems.Any() ? "visible" : "hidden")">
         <tr>
-            <td colspan="3">
+            <td colspan="4">
                 Nothing to display.
             </td>
         </tr>
     </tfoot>
 </table>
-<span class="alert alert-danger" style="visibility:@(Model.Message!=null ? "visible" : "hidden")">@Model.Message</span>
+<table class="table table-dark">
 
-<h3>Total pay:</h3>
-<h4>@Model.TotalPrice</h4>
-
+    <tbody>
+        @if (Model.ApplicationUser != null)
+        {
+            @if (Model.ApplicationUser.Membership != null)
+            {
+                <tr>
+                    <th scope="row">Membership: </th>
+                    <td>@Model.ApplicationUser.Membership.Type</td>
+                </tr>
+                <tr>
+                    <th scope="row">Discount: </th>
+                    <td>@Model.ApplicationUser.Membership.Discount.ToString("P")</td>
+                </tr>
+            }
+        }
+        else
+        {
+            <tr>
+                <th scope="row">Membership: </th>
+                <td>No Membership</td>
+            </tr>
+            <tr>
+                <th scope="row">Discount: </th>
+                <td>0 %</td>
+            </tr>
+        }
+        <tr>
+            <th scope="row">Total Pay: </th>
+            <td>$ @Model.TotalPrice</td>
+        </tr>
+    </tbody>
+</table>
 <a class="btn btn-success" asp-page="/Order/Checkout">Checkout</a>
-
+<span class="alert alert-danger" style="visibility:@(Model.Message!=null ? "visible" : "hidden")">@Model.Message</span>

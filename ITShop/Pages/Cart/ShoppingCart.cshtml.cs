@@ -3,8 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using BusinessLayer;
+using Core;
 using Data.Interface;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Newtonsoft.Json;
@@ -15,26 +17,49 @@ namespace ITShop
     {
         private readonly IProductData productData;
         private readonly CartBL cartBL;
+        private readonly UserManager<ApplicationUser> userManager;
+        private readonly IMembershipData membershipData;
+
         public List<ShoppingCart> CartItems { get; set; }
         [TempData]
         public string Message { get; set; }
         public double TotalPrice { get; set; }
-        public ShoppingCartModel(IProductData productData, CartBL cartBL)
+        public ApplicationUser ApplicationUser { get; set; }
+        public ShoppingCartModel(IProductData productData, CartBL cartBL, UserManager<ApplicationUser> userManager, IMembershipData membershipData)
         {
             this.productData = productData;
             this.cartBL = cartBL;
+            this.userManager = userManager;
+            this.membershipData = membershipData;
             CartItems = new List<ShoppingCart>();
         }
-        public void OnGet()
+        public async Task<IActionResult> OnGet()
         {
             if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
             {
                 CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
-                TotalPrice = cartBL.TotalPrice(CartItems);
+
+                ApplicationUser = await userManager.GetUserAsync(User);
+
+                if (ApplicationUser != null)
+                {
+                    if (ApplicationUser.MembershipId!=0)
+                    {
+                        var membership = membershipData.GetMembershipById(ApplicationUser.MembershipId.Value);
+                        ApplicationUser.Membership = membership;
+                        TotalPrice = cartBL.TotalPrice(CartItems, ApplicationUser.Membership.Discount);
+                    }
+                }
+                else
+                {
+                    TotalPrice = cartBL.TotalPrice(CartItems, 0);
+                }
+                HttpContext.Session.SetString("TotalPrice",TotalPrice.ToString());
             }
+            return Page();
         }
         public IActionResult OnGetBuy(int id)
-        {
+         {
             var product = productData.GetProductById(id);
             if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
             {

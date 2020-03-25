@@ -4,6 +4,16 @@
     ViewData["Title"] = "Checkout";
 }
 
+@section Styles{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <style>
+        .cardNumClass {
+            display: none;
+        }
+    </style>
+}
+
 <h1>Checkout</h1>
 
 <form method="post">
@@ -12,21 +22,85 @@
         <div class="col">
             <label asp-for="Order.FirstName"></label>
             <input class="form-control" asp-for="Order.FirstName">
+            <span class="text-danger" asp-validation-for="Order.FirstName"></span>
         </div>
         <div class="col">
             <label asp-for="Order.LastName"></label>
             <input class="form-control" asp-for="Order.LastName">
+            <span class="text-danger" asp-validation-for="Order.LastName"></span>
         </div>
     </div>
     <div class="row">
         <div class="col">
             <label asp-for="Order.City"></label>
             <input class="form-control" asp-for="Order.City">
+            <span class="text-danger" asp-validation-for="Order.City"></span>
         </div>
         <div class="col">
             <label asp-for="Order.Country"></label>
             <input class="form-control" asp-for="Order.Country">
+            <span class="text-danger" asp-validation-for="Order.Country"></span>
         </div>
     </div>
+    @if (!Model.ApplicationUser.IsMember)
+    {
+
+        <div class="row">
+            @for (int i = 0; i < Model.Memberships.Count(); i++)
+            {
+                <div class="col-lg-4 mb-4">
+                    <div class="card h-100">
+                        <h3 class="card-header">@Model.Memberships[i].Type</h3>
+                        <div class="card-body">
+                            <div class="display-4">$ @Model.Memberships[i].Price</div>
+                            <div class="font-italic">per month</div>
+                        </div>
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">Discount on all products: @Model.Memberships[i].Discount.ToString("P")</li>
+                            <li class="list-group-item"></li>
+                            <li class="list-group-item">For this order you will pay: $ @(Model.Order.OrderTotal*(1-Model.Memberships[i].Discount)) + @Model.Memberships[i].Price</li>
+                            <li class="list-group-item">
+                                <input type="radio" asp-for="Selected" value="@Model.Memberships[i].Id" />
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <table class="table table-dark">
+
+            <tbody>
+                <tr>
+                    <th scope="row">Membership: </th>
+                    <td>@Model.ApplicationUser.Membership.Type</td>
+                </tr>
+                <tr>
+                    <th scope="row">Discount: </th>
+                    <td>@Model.ApplicationUser.Membership.Discount.ToString("P")</td>
+                </tr>
+                <tr>
+                    <th scope="row">Total Pay: </th>
+                    <td>@Model.Order.OrderTotal</td>
+                </tr>
+            </tbody>
+        </table>
+    }
+
     <button class="btn btn-success" type="submit">Order</button>
 </form>
+
+@section Scripts{
+    <script>
+        var radios = document.getElementsByTagName('input');
+        for (i = 0; i < radios.length; i++) {
+            radios[i].onclick = function (e) {
+                if (e.ctrlKey) {
+                    this.checked = false;
+                }
+            }
+        }
+    </script>
+}

@@ -7,14 +7,23 @@ namespace BusinessLayer
 {
     public class CartBL
     {
-        public double TotalPrice(List<ShoppingCart> cartItems)
+        public double TotalPrice(List<ShoppingCart> cartItems, double discount)
         {
             var total = 0.0;
             foreach (var cartItem in cartItems)
             {
                 total += cartItem.Quantity * cartItem.Product.Price;
             }
+            if (discount!=0)
+            {
+                total *= (1 - discount);
+            }
             return total;
+        }
+        public double MemberOnCheckout(double totalPrice, ApplicationUser applicationUser)
+        {
+            return totalPrice *= (1 - applicationUser.Membership.Discount);
+
         }
         public ShoppingCart AddCartItem(Product product)
         {

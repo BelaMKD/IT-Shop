@@ -67,9 +67,9 @@
                     <h5 >$ @product.Price</h5>
                     @*<p class="card-text">@product.Description</p>*@
                 <div class="card">
-                    <button class="btn btn-success" style="margin:2%">Add to cart
+                    <a class="btn btn-success" style="margin:2%" asp-page="/Cart/ShoppingCart" asp-page-handler="Buy" asp-route-id="@product.Id">Add to cart
                         <i class="fa fa-shopping-cart"></i>
-                    </button>
+                    </a>
                     <button class="btn btn-primary" style="margin:2%">Details
                         <i class="fa fa-search"></i>
                     </button>

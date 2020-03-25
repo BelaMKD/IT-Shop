@@ -13,6 +13,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Serialization;
 
 namespace ITShop
 {
@@ -31,9 +33,12 @@ namespace ITShop
             services.AddRazorPages();
             services.AddMvc().AddRazorRuntimeCompilation();
 
+
+
             services.AddScoped<ICategoryData, CategorySqlData>();
             services.AddScoped<IOrderData, OrderSqlData>();
             services.AddScoped<IProductData, ProductSqlData>();
+            services.AddScoped<IMembershipData, MembershipSqlData>();
             services.AddScoped<CartBL>();
             services.AddDbContextPool<ITShopDbContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("ITShopDb")));
