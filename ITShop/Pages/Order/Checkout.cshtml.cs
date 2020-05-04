@@ -77,6 +77,7 @@ namespace ITShop
                 Order.UserId = ApplicationUser.Id;
                 orderData.CreateOrder(Order);
                 orderData.Commit();
+                HttpContext.Session.Remove("CartItems");
                 return RedirectToPage("/Order/CheckoutComplete");
             }
             return Page();

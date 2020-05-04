@@ -35,27 +35,34 @@ namespace ITShop
         }
         public async Task<IActionResult> OnGet()
         {
-            if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
+            ApplicationUser = await userManager.GetUserAsync(User);
+            if (ApplicationUser != null)
             {
-                CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
-
-                ApplicationUser = await userManager.GetUserAsync(User);
-
-                if (ApplicationUser != null)
+                if (ApplicationUser.IsMember)
                 {
-                    if (ApplicationUser.MembershipId!=0)
+                    var membership = membershipData.GetMembershipById(ApplicationUser.MembershipId.Value);
+                    ApplicationUser.Membership = membership;
+                }
+
+
+                if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
+                {
+                    CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
+
+
+                    if (ApplicationUser.IsMember)
                     {
-                        var membership = membershipData.GetMembershipById(ApplicationUser.MembershipId.Value);
-                        ApplicationUser.Membership = membership;
+
                         TotalPrice = cartBL.TotalPrice(CartItems, ApplicationUser.Membership.Discount);
                     }
+                    else
+                    {
+                        TotalPrice = cartBL.TotalPrice(CartItems, 0);
+                    }
                 }
-                else
-                {
-                    TotalPrice = cartBL.TotalPrice(CartItems, 0);
-                }
-                HttpContext.Session.SetString("TotalPrice",TotalPrice.ToString());
-            }
+
+                HttpContext.Session.SetString("TotalPrice", TotalPrice.ToString());
+            } 
             return Page();
         }
         public IActionResult OnGetBuy(int id)

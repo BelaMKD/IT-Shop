@@ -9,6 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace ITShop
 {
@@ -20,20 +21,25 @@ namespace ITShop
         [BindProperty]
         public Product Product { get; set; }
         public List<SelectListItem> CategoryTypes { get; set; }
+        [BindProperty]
+        public string ImgPath { get; set; }
         public AddEditModel(IProductData productData, ICategoryData categoryData)
         {
             this.productData = productData;
             this.categoryData = categoryData;
         }
-        public IActionResult OnGet(int? id)
+
+    public IActionResult OnGet(int? id)
         {
             if (id.HasValue)
             {
                 Product = productData.GetProductById(id.Value);
-                if (Product!=null)
+                if (Product==null)
                 {
                     return RedirectToPage("./List");
                 }
+                Product.Discount = Product.Discount * 100;
+                ImgPath = Product.ImagePath;
             }
             else
             {
@@ -46,7 +52,7 @@ namespace ITShop
             }).ToList();
             return Page();
         }
-        public IActionResult OnPost(IFormFile file)
+        public async Task<IActionResult> OnPost(IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -54,15 +60,42 @@ namespace ITShop
                 Product.Category = category;
                 Product.Discount = Product.Discount / 100;
                 Product.TotalPrice = Product.Price * (1 - Product.Discount);
+                if (file != null)
+                {
+                    string uploadsFolder = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
+                    string imagePath = Path.Combine("~/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
+                    //if (imagePath != ImgPath)
+                    //{
+                    //file.CopyTo(new FileStream(uploadsFolder, FileMode.OpenOrCreate));
+                    //}
+
+                    
+
+                    using (var stream = new FileStream(uploadsFolder, FileMode.Create))
+                    {
+                        stream.Close();
+                        if (System.IO.File.Exists(uploadsFolder))
+                        {
+                            System.IO.File.Delete(uploadsFolder);
+                        }
+                        await file.CopyToAsync(new FileStream(uploadsFolder, FileMode.OpenOrCreate));
+                        stream.Close();
+                    }
+
+
+
+
+
+
+
+
+
+
+
+                    Product.ImagePath = imagePath;
+                }
                 if (Product.Id==0)
                 {
-                    if (file != null)
-                    {
-                        string uploadsFolder = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
-                        string imagePath = Path.Combine("~/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
-                        file.CopyTo(new FileStream(uploadsFolder, FileMode.Create));
-                        Product.ImagePath = imagePath;
-                    }
                     Product.DateAdded = DateTime.Now;
                     productData.AddProduct(Product);
                     TempData["Message"] = "Product is created";

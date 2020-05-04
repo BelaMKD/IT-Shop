@@ -29,7 +29,10 @@ namespace Data.SqlData
 
         public Product DeleteProduct(int id)
         {
-            var tempProduct = dbContext.Products.SingleOrDefault(x => x.Id == id);
+            var tempProduct = dbContext.Products
+                .Include(x=>x.Category)
+                .Include(x=>x.OrderDetails)
+                .SingleOrDefault(x => x.Id == id);
             if (tempProduct != null)
             {
                 dbContext.Products.Remove(tempProduct);
@@ -41,6 +44,7 @@ namespace Data.SqlData
         {
             return dbContext.Products
                 .Include(x=>x.Category)
+                .Include(x=>x.OrderDetails)
                 .SingleOrDefault(x => x.Id == id);
         }
 
@@ -61,7 +65,14 @@ namespace Data.SqlData
         {
             return dbContext.Products
                 .OrderByDescending(x => x.DateAdded)
-                .Take(5)
+                .Take(8)
+                .ToList();
+        }
+        public IEnumerable<Product> GetFirstFiveDiscountedProducts()
+        {
+            return dbContext.Products
+                .Where(x => x.Discount != 0)
+                .Take(4)
                 .ToList();
         }
     }

@@ -2,7 +2,9 @@
 @model IndexModel
 @{
     ViewData["Title"] = "Home page";
+    var imagePath = "~/images/image700x400/700x400.png";
 }
+
 
 
 @section Index{
@@ -15,21 +17,21 @@
             </ol>
             <div class="carousel-inner" role="listbox">
                 Slide One - Set the background image for this slide in the line below
-                <div class="carousel-item active" style="background-image: url('http://placehold.it/1900x1080')">
+                <div class="carousel-item active" style="background-image: url('/images/cover/cover1.jpg')">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>First Slide</h3>
                         <p>This is a description for the first slide.</p>
                     </div>
                 </div>
                 Slide Two - Set the background image for this slide in the line below
-                <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+                <div class="carousel-item" style="background-image: url('/images/cover/cover2.jpg')">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Second Slide</h3>
                         <p>This is a description for the second slide.</p>
                     </div>
                 </div>
                 Slide Three - Set the background image for this slide in the line below
-                <div class="carousel-item" style="background-image: url('http://placehold.it/1900x1080')">
+                <div class="carousel-item" style="background-image: url('/images/cover/cover3.jpg')">
                     <div class="carousel-caption d-none d-md-block">
                         <h3>Third Slide</h3>
                         <p>This is a description for the third slide.</p>
@@ -55,102 +57,40 @@
 <div class="row">
 
 
-    @foreach (var product in Model.Products)
+    @foreach (var product in Model.NewProducts)
     {
+        if (product.ImagePath != null)
+        {
+            imagePath = product.ImagePath;
+        }
         <div class="col-lg-3 col-md-6 mb-4">
             <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="@product.ImagePath" asp-append-version="true"></a>
-                <div class="card-body">
+                <a href="#"><img class="card-img-top" src="@imagePath" asp-append-version="true"></a>
+                <div class="card-body" >
                     <h4 class="card-title">
                         <a href="#">@product.Name</a>
                     </h4>
-                    <h5 >$ @product.Price</h5>
+                    <h5>$ @product.Price</h5>
                     @*<p class="card-text">@product.Description</p>*@
-                <div class="card">
-                    <a class="btn btn-success" style="margin:2%" asp-page="/Cart/ShoppingCart" asp-page-handler="Buy" asp-route-id="@product.Id">Add to cart
-                        <i class="fa fa-shopping-cart"></i>
-                    </a>
-                    <button class="btn btn-primary" style="margin:2%">Details
-                        <i class="fa fa-search"></i>
-                    </button>
-                </div>
+                    <div class="card" style="display:">
+                        <a class="btn btn-success" style="margin:2%" asp-page="/Cart/ShoppingCart" asp-page-handler="Buy" asp-route-id="@product.Id">
+                            Add to cart
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <a class="btn btn-primary" style="margin:2%" asp-page="/Products/Detail" asp-route-id="@product.Id">
+                            Details
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
                 </div>
                 <div class="card-footer">
-                    <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @Model.CalculateProgressBar(product.Quantity)%" aria-valuenow="@Model.CalculateProgressBar(product.Quantity)" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
                 </div>
             </div>
         </div>
     }
-
-
-
-
-
-
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item One</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item Two</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item Three</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item Four</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
 </div>
 
 
@@ -160,69 +100,40 @@
 
 <div class="row">
 
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item One</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item Two</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur! Lorem ipsum dolor sit amet.</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item Three</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
+    @foreach (var product in Model.DiscountedProducts)
+    {
+        if (product.ImagePath != null)
+        {
+            imagePath = product.ImagePath;
+        }
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="card h-100">
+                <a href="#"><img class="card-img-top" src="@imagePath" asp-append-version="true"></a>
+                <div class="card-body">
+                    <h4 class="card-title">
+                        <a href="#">@product.Name</a>
+                    </h4>
+                    <h5>$ @product.Price</h5>
+                    @*<p class="card-text">@product.Description</p>*@
+                    <div class="card">
+                        <a class="btn btn-success" style="margin:2%" asp-page="/Cart/ShoppingCart" asp-page-handler="Buy" asp-route-id="@product.Id">
+                            Add to cart
+                            <i class="fa fa-shopping-cart"></i>
+                        </a>
+                        <a class="btn btn-primary" style="margin:2%" asp-page="/Products/Detail" asp-route-id="@product.Id">
+                            Details
+                            <i class="fa fa-search"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" style="width: @Model.CalculateProgressBar(product.Quantity)%" aria-valuenow="@Model.CalculateProgressBar(product.Quantity)" aria-valuemin="0" aria-valuemax="100"></div>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-
-    <div class="col-lg-3 col-md-6 mb-4">
-        <div class="card h-100">
-            <a href="#"><img class="card-img-top" src="http://placehold.it/700x400" alt=""></a>
-            <div class="card-body">
-                <h4 class="card-title">
-                    <a href="#">Item Four</a>
-                </h4>
-                <h5>$24.99</h5>
-                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Amet numquam aspernatur!</p>
-            </div>
-            <div class="card-footer">
-                <small class="text-muted">&#9733; &#9733; &#9733; &#9733; &#9734;</small>
-            </div>
-        </div>
-    </div>
+    }
 </div>
 
 @section Scripts{

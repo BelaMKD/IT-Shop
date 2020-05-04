@@ -15,7 +15,7 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.1" />
+    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
   </ItemGroup>
 
   <ItemGroup>
@@ -25,9 +25,9 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\Laptops\" />
-    <Folder Include="wwwroot\images\Audio\" />
-    <Folder Include="wwwroot\images\Computers\" />
     <Folder Include="wwwroot\images\Mobiles\" />
+    <Folder Include="wwwroot\images\Computers\" />
+    <Folder Include="wwwroot\images\Audio\" />
     <Folder Include="wwwroot\images\TV\" />
   </ItemGroup>
 

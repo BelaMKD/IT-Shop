@@ -58,17 +58,17 @@
                     <td>@Model.ApplicationUser.Membership.Discount.ToString("P")</td>
                 </tr>
             }
-        }
-        else
-        {
-            <tr>
-                <th scope="row">Membership: </th>
-                <td>No Membership</td>
-            </tr>
-            <tr>
-                <th scope="row">Discount: </th>
-                <td>0 %</td>
-            </tr>
+            else
+            {
+                <tr>
+                    <th scope="row">Membership: </th>
+                    <td>No Membership</td>
+                </tr>
+                <tr>
+                    <th scope="row">Discount: </th>
+                    <td>0 %</td>
+                </tr>
+            }
         }
         <tr>
             <th scope="row">Total Pay: </th>

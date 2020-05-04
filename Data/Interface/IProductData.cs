@@ -10,6 +10,7 @@ namespace Data.Interface
         Product GetProductById(int id);
         IEnumerable<Product> GetProducts(string name=null);
         IEnumerable<Product> GetFirtsFiveNewProducts();
+        IEnumerable<Product> GetFirstFiveDiscountedProducts();
         Product AddProduct(Product product);
         Product UpdateProduct(Product product);
         Product DeleteProduct(int id);

@@ -4,17 +4,21 @@
     ViewData["Title"] = "AddEdit";
 }
 
-@if (Model.Product.Id == 0)
-{
-    <h1>Add New Product</h1>
-}
-else
-{
-    <h1>Edit @Model.Product.Name</h1>
-}
-
 
 <form method="post" enctype="multipart/form-data">
+
+    @if (Model.Product.Id == 0)
+    {
+        <h1>Add New Product</h1>
+    }
+    else
+    {
+        <h1>Edit @Model.Product.Name</h1>
+        <input type="hidden" asp-for="ImgPath" />
+    }
+
+
+    <input type="hidden" asp-for="Product.Id" />
     <div class="row">
         <div class="col">
             <label asp-for="Product.Name"></label>

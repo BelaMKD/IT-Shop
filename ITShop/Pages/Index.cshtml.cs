@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BusinessLayer;
 using Core;
 using Data.Interface;
 using Microsoft.AspNetCore.Mvc;
@@ -14,8 +15,9 @@ namespace ITShop.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IProductData productData;
-        public IEnumerable<Product> Products { get; set; }
 
+        public IEnumerable<Product> NewProducts { get; set; }
+        public IEnumerable<Product> DiscountedProducts { get; set; }
         public IndexModel(ILogger<IndexModel> logger, IProductData productData)
         {
             _logger = logger;
@@ -24,7 +26,15 @@ namespace ITShop.Pages
 
         public void OnGet()
         {
-            Products = productData.GetFirtsFiveNewProducts();
+            NewProducts = productData.GetFirtsFiveNewProducts();
+            DiscountedProducts = productData.GetFirstFiveDiscountedProducts();
+        }
+        public int CalculateProgressBar(int quantity)
+        {
+            var maxQuantity = 50;
+            var percent = (double) quantity / maxQuantity;
+
+            return Convert.ToInt32(percent * 100);
         }
     }
 }

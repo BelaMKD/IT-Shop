@@ -33,14 +33,15 @@ namespace ITShop
         } 
         public IActionResult OnPost(int id)
         {
+            //var category = categoryData.GetCategoryById(Product.CategoryId.Value);
+            //Product.Category = category;
+            //var path = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
+
             Product = productData.DeleteProduct(id);
             if (Product==null)
             {
                 return RedirectToPage("./List");
             }
-            var category = categoryData.GetCategoryById(Product.CategoryId.Value);
-            Product.Category = category;
-            var path = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
             TempData["Message"] = "Product is deleted";
             productData.Commit();
             return RedirectToPage("./List");
