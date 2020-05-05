@@ -5,7 +5,9 @@
     var imagePath = "~/images/image700x400/700x400.png";
 }
 
-
+@section Styles{
+    <link href="~/css/index.css" rel="stylesheet" />
+ }
 
 @section Index{
     <header>
@@ -60,33 +62,63 @@
         {
             imagePath = product.ImagePath;
         }
-        <div class="col-lg-3 col-md-6 mb-4">
-            <div class="card h-100">
-                <a href="#"><img class="card-img-top" src="@imagePath" asp-append-version="true"></a>
-                <div class="card-body" >
-                    <h4 class="card-title">
-                        <a href="#">@product.Name</a>
-                    </h4>
-                    <h5>$ @product.Price</h5>
-                    @*<p class="card-text">@product.Description</p>*@
-                    <div class="card" style="display:">
-                        <a class="btn btn-success" style="margin:2%" asp-page="/Cart/ShoppingCart" asp-page-handler="Buy" asp-route-id="@product.Id">
-                            Add to cart
-                            <i class="fa fa-shopping-cart"></i>
-                        </a>
-                        <a class="btn btn-primary" style="margin:2%" asp-page="/Products/Detail" asp-route-id="@product.Id">
-                            Details
-                            <i class="fa fa-search"></i>
-                        </a>
+        @*<div class="col-lg-3 col-md-6 mb-4">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" src="@imagePath" asp-append-version="true"></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">@product.Name</a>
+                        </h4>
+                        <h5>$ @product.Price</h5>
+                        <p class="card-text">@product.Description</p>
+                        <div class="card" style="display:">
+                            <a class="btn btn-success" style="margin:2%" asp-page="/Cart/ShoppingCart" asp-page-handler="Buy" asp-route-id="@product.Id">
+                                Add to cart
+                                <i class="fa fa-shopping-cart"></i>
+                            </a>
+                            <a class="btn btn-primary" style="margin:2%" asp-page="/Products/Detail" asp-route-id="@product.Id">
+                                Details
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="card-footer">
+                        <div class="progress">
+                            <div class="progress-bar" role="progressbar" style="width: @Model.CalculateProgressBar(product.Quantity)%" aria-valuenow="@Model.CalculateProgressBar(product.Quantity)" aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-footer">
-                    <div class="progress">
-                        <div class="progress-bar" role="progressbar" style="width: @Model.CalculateProgressBar(product.Quantity)%" aria-valuenow="@Model.CalculateProgressBar(product.Quantity)" aria-valuemin="0" aria-valuemax="100"></div>
-                    </div>
+            </div>*@
+
+
+
+    <div class="col-lg-3 col-md-6 mb-4">
+        <div class="product-grid3">
+            <div class="product-image3">
+                <a href="#">
+                    <img class="pic-1" src="@imagePath" asp-append-version="true">
+                </a>
+                <ul class="social">
+                    <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
+                    <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                </ul>
+                <span class="product-new-label">New</span>
+            </div>
+            <div class="product-content">
+                <h3 class="title"><a href="#">@product.Name</a></h3>
+                <div class="price">
+                    $@product.TotalPrice
+                    @if (product.Discount != 0)
+                    {
+                        <span>$@product.Price</span>
+                    }
+                </div>
+                <div class="progress">
+                    <div class="progress-bar" role="progressbar" style="width: @Model.CalculateProgressBar(product.Quantity)%" aria-valuenow="@Model.CalculateProgressBar(product.Quantity)" aria-valuemin="0" aria-valuemax="100">@Model.CalculateProgressBar(product.Quantity) %</div>
                 </div>
             </div>
         </div>
+    </div>
     }
 </div>
 
@@ -127,6 +159,36 @@
                     <div class="progress">
                         <div class="progress-bar" role="progressbar" style="width: @Model.CalculateProgressBar(product.Quantity)%" aria-valuenow="@Model.CalculateProgressBar(product.Quantity)" aria-valuemin="0" aria-valuemax="100"></div>
                     </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col-lg-3 col-md-6 mb-4">
+            <div class="product-grid3">
+                <div class="product-image3">
+                    <a href="#">
+                        <img class="pic-1" src="@imagePath" asp-append-version="true">
+                    </a>
+                    <ul class="social">
+                        <li><a href="#"><i class="fa fa-shopping-bag"></i></a></li>
+                        <li><a href="#"><i class="fa fa-shopping-cart"></i></a></li>
+                    </ul>
+                    <span class="product-new-label">New</span>
+                </div>
+                <div class="product-content">
+                    <h3 class="title"><a href="#">Men's Blazer</a></h3>
+                    <div class="price">
+                        $63.50
+                        <span>$75.00</span>
+                    </div>
+                    <ul class="rating">
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star"></li>
+                        <li class="fa fa-star disable"></li>
+                        <li class="fa fa-star disable"></li>
+                    </ul>
                 </div>
             </div>
         </div>
