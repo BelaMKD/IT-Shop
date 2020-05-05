@@ -1,0 +1,60 @@
+﻿
+.link {
+    outline: none;
+    text-decoration: none;
+    position: relative;
+    font-size: 2em;
+    line-height: 1;
+    color: #28a745;
+    display: inline-block;
+    margin-right:12%
+}
+
+.link--kukuri {
+    text-transform: uppercase;
+    font-weight: 900;
+    overflow: hidden;
+    line-height: 0.75;
+    color: #28a745;
+}
+
+.link--kukuri:hover {
+    color: #28a745;
+}
+
+.link--kukuri::after {
+    content: '';
+    position: absolute;
+    gi height: 16px;
+    width: 100%;
+    top: 50%;
+    margin-top: -8px;
+    right: 0;
+    background: #F9F9F9;
+    transform: translate3d(-100%,0,0);
+    transition: transform 0.1s;
+    transition-timing-function: cubic-bezier(0.7,0,0.3,1);
+}
+
+.link--kukuri:hover::after {
+    transform: translate3d(100%,0,0);
+}
+
+.link--kukuri::before {
+    content: attr(data-letters);
+    position: absolute;
+    z-index: 2;
+    overflow: hidden;
+    color: #F9F9F9;
+    white-space: nowrap;
+    width: 0%;
+    transition: width 0.1s 0.1s;
+}
+
+.link--kukuri:hover::before {
+    width: 100%;
+}
+
+ul li {
+    margin: 0 3px;
+}
