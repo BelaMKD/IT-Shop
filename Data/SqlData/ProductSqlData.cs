@@ -51,7 +51,7 @@ namespace Data.SqlData
         public IEnumerable<Product> GetProducts(string name = null)
         {
             return dbContext.Products
-                .Where(x => string.IsNullOrEmpty(name) || x.Name.StartsWith(name))
+                .Where(x => string.IsNullOrEmpty(name) || x.Name.StartsWith(name) || x.Category.Type.StartsWith(name))
                 .Include(x=>x.Category)
                 .ToList();
         } 

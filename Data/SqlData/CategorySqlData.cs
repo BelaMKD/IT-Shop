@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace Data.SqlData
@@ -16,9 +17,9 @@ namespace Data.SqlData
         {
             this.dbContext = dbContext;
         }
-        public IEnumerable<Category> GetCategories(string search = null)
+        public IEnumerable<Category> GetCategories()
         {
-            return dbContext.Categories.Where(x=> string.IsNullOrEmpty(search) || x.Type.ToLower().StartsWith(search.ToLower()))
+            return dbContext.Categories
                 .Include(x => x.Products)
                 .ToList();
         }
