@@ -35,6 +35,44 @@ namespace ITShop
         }
         public async Task<IActionResult> OnGet()
         {
+            //ApplicationUser = await userManager.GetUserAsync(User);
+            //if (ApplicationUser != null)
+            //{
+            //    if (ApplicationUser.IsMember)
+            //    {
+            //        var membership = membershipData.GetMembershipById(ApplicationUser.MembershipId.Value);
+            //        ApplicationUser.Membership = membership;
+            //    }
+
+
+            //    if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
+            //    {
+            //        CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
+
+
+            //        if (ApplicationUser.IsMember)
+            //        {
+
+            //            TotalPrice = cartBL.TotalPrice(CartItems, ApplicationUser.Membership.Discount);
+            //        }
+            //        else
+            //        {
+            //            TotalPrice = cartBL.TotalPrice(CartItems, 0);
+            //        }
+            //    }
+
+            //    HttpContext.Session.SetString("TotalPrice", TotalPrice.ToString());
+            //}
+            //CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
+
+            //return Page();
+
+
+            if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
+            {
+                CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
+            }
+
             ApplicationUser = await userManager.GetUserAsync(User);
             if (ApplicationUser != null)
             {
@@ -42,29 +80,21 @@ namespace ITShop
                 {
                     var membership = membershipData.GetMembershipById(ApplicationUser.MembershipId.Value);
                     ApplicationUser.Membership = membership;
+                    TotalPrice = cartBL.TotalPrice(CartItems, ApplicationUser.Membership.Discount);
                 }
 
+            }
+            TotalPrice = cartBL.TotalPrice(CartItems, 0);
+            HttpContext.Session.SetString("TotalPrice", TotalPrice.ToString());
 
-                if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
-                {
-                    CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
+            CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
 
-
-                    if (ApplicationUser.IsMember)
-                    {
-
-                        TotalPrice = cartBL.TotalPrice(CartItems, ApplicationUser.Membership.Discount);
-                    }
-                    else
-                    {
-                        TotalPrice = cartBL.TotalPrice(CartItems, 0);
-                    }
-                }
-
-                HttpContext.Session.SetString("TotalPrice", TotalPrice.ToString());
-            } 
             return Page();
+
+
+
         }
+    
         public IActionResult OnGetBuy(int id)
          {
             var product = productData.GetProductById(id);
@@ -83,6 +113,7 @@ namespace ITShop
             HttpContext.Session.SetObjectAsJson("CartItems", CartItems);
             CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
             return RedirectToPage("./ShoppingCart");
+            //return Page();
         }
         public IActionResult OnPostMinus(int id)
         {

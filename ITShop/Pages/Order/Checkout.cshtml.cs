@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using BusinessLayer;
 using Core;
 using Data.Interface;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -14,6 +15,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ITShop
 {
+    [Authorize]
     public class CheckoutModel : PageModel
     {
         private readonly IOrderData orderData;
