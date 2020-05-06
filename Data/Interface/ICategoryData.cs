@@ -8,6 +8,6 @@ namespace Data.Interface
     public interface ICategoryData
     {
         Category GetCategoryById(int id);
-        IEnumerable<Category> GetCategories();
+        IEnumerable<Category> GetCategories(string search = null);
     }
 }

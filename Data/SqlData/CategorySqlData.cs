@@ -16,9 +16,9 @@ namespace Data.SqlData
         {
             this.dbContext = dbContext;
         }
-        public IEnumerable<Category> GetCategories()
+        public IEnumerable<Category> GetCategories(string search = null)
         {
-            return dbContext.Categories
+            return dbContext.Categories.Where(x=> string.IsNullOrEmpty(search) || x.Type.ToLower().StartsWith(search.ToLower()))
                 .Include(x => x.Products)
                 .ToList();
         }
