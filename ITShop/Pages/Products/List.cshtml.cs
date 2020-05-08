@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
@@ -28,6 +29,16 @@ namespace ITShop
         public IActionResult OnPostDelete(int id)
         {
             Product = productData.DeleteProduct(id);
+            var path = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
+            using (StreamWriter sw = new StreamWriter(path, true))
+            {
+                sw.Close();
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                sw.Close();
+            }
             if (Product == null)
             {
                 return RedirectToPage("./List");

@@ -52,7 +52,7 @@ namespace ITShop
             }).ToList();
             return Page();
         }
-        public async Task<IActionResult> OnPost(IFormFile file)
+        public IActionResult OnPost(IFormFile file)
         {
             if (ModelState.IsValid)
             {
@@ -64,34 +64,12 @@ namespace ITShop
                 {
                     string uploadsFolder = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
                     string imagePath = Path.Combine("~/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
-                    //if (imagePath != ImgPath)
-                    //{
-                    //file.CopyTo(new FileStream(uploadsFolder, FileMode.OpenOrCreate));
-                    //}
-
-                    
-
                     using (var stream = new FileStream(uploadsFolder, FileMode.Create))
                     {
+                        file.CopyTo(stream);
                         stream.Close();
-                        if (System.IO.File.Exists(uploadsFolder))
-                        {
-                            System.IO.File.Delete(uploadsFolder);
-                        }
-                        await file.CopyToAsync(new FileStream(uploadsFolder, FileMode.OpenOrCreate));
-                        stream.Close();
+
                     }
-
-
-
-
-
-
-
-
-
-
-
                     Product.ImagePath = imagePath;
                 }
                 if (Product.Id==0)

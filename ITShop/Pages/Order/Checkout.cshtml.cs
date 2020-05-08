@@ -33,6 +33,7 @@ namespace ITShop
         public Order Order { get; set; }
         [BindProperty]
         public ApplicationUser ApplicationUser { get; set; }
+        public Product Product { get; set; }
         public CheckoutModel(IOrderData orderData, UserManager<ApplicationUser> userManager, IProductData productData, IMembershipData membershipData, CartBL cartBL)
         {
             this.orderData = orderData;
@@ -63,6 +64,11 @@ namespace ITShop
                         Product = productData.GetProductById(cartItem.Id),
                         Quantity = cartItem.Quantity
                     });
+
+                    //
+                    Product = productData.GetProductById(cartItem.Id);
+                    Product.Quantity -= cartItem.Quantity;
+                    //
                 }
 
                 if (Selected!=null)

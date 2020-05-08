@@ -71,8 +71,6 @@ namespace ITShop
             if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
             {
                 CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
-            }
-
             ApplicationUser = await userManager.GetUserAsync(User);
             if (ApplicationUser != null)
             {
@@ -82,17 +80,11 @@ namespace ITShop
                     ApplicationUser.Membership = membership;
                     TotalPrice = cartBL.TotalPrice(CartItems, ApplicationUser.Membership.Discount);
                 }
-
             }
             TotalPrice = cartBL.TotalPrice(CartItems, 0);
             HttpContext.Session.SetString("TotalPrice", TotalPrice.ToString());
-
-            CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
-
+            }
             return Page();
-
-
-
         }
     
         public IActionResult OnGetBuy(int id)

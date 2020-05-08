@@ -35,9 +35,17 @@ namespace ITShop
         {
             //var category = categoryData.GetCategoryById(Product.CategoryId.Value);
             //Product.Category = category;
-            //var path = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
+
+
 
             Product = productData.DeleteProduct(id);
+
+            var path = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
+            if (System.IO.File.Exists(path))
+            {
+                System.IO.File.Delete(path);
+            }
+
             if (Product==null)
             {
                 return RedirectToPage("./List");

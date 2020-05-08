@@ -239,10 +239,14 @@
 }
 
 .result {
-    border-bottom: 10px solid #343a40;
+    border-radius: 5px;
+    background-color: #343a40;
+    color: black;
+    margin: 1% 0;
+    padding: 1px 10px;
+    background-image: linear-gradient(to right,#343a40, #fff, #343a40);
 }
 
 .result h3 {
     text-align: center;
-    margin-top:5%;
 }
