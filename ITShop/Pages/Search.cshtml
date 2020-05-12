@@ -10,6 +10,8 @@
     <link href="~/css/search.css" rel="stylesheet" />
 }
 
+
+
 @if (Model.Products.Count() == 0)
 {
     <div class="noResult">
@@ -22,12 +24,18 @@
     </div>
 }
 
-@if (!string.IsNullOrEmpty(Model.Search))
-{
-    <div class="result">
-        <h3>Found @Model.Products.Count() results for @Model.Search</h3>
+
+    <div class="result" style="margin-top:3%">
+        <h3>Found @Model.Products.Count() results</h3>
     </div>
-}
+
+    <form method="post" class="form-inline" >
+        <select class="form-control selectTag mr-sm-2" name="categoryId" asp-items="Model.Categories" style="width:49.6%">
+            <option value="">CHOOSE CATEGORY</option>
+        </select>
+        <button class="btn btn-primary btnTag" type="submit" style="width:49.6%">SUBMIT    </button>
+    </form>
+
 
 <div class="row" style="margin-top:5%">
 

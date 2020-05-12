@@ -250,3 +250,16 @@
 .result h3 {
     text-align: center;
 }
+
+.selectTag {
+    text-align-last: center;
+    font-weight: bold;
+    background-image: linear-gradient(to right,#0069d9, #fff);
+    border-color: #1861ac;
+}
+
+.btnTag {
+    background-image: linear-gradient(to left,#0069d9, #fff);
+    color: #495057;
+    font-weight: bold;
+}

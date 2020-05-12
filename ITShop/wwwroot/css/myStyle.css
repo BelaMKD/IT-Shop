@@ -1,4 +1,11 @@
-﻿
+﻿@import url('https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+}
+
+
 .link {
     outline: none;
     text-decoration: none;
@@ -60,4 +67,10 @@ ul li {
 }
 h3 {
     text-align: center;
+}
+.numberShopItems {
+    background-color: #218838;
+    color:white;
+    border-radius : 20px;
+    padding: 0 9px;
 }

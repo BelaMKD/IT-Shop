@@ -13,6 +13,8 @@ namespace ITShop.Pages.Products
     {
         private readonly IProductData productData;
         public Product Product { get; set; }
+        public IEnumerable<Product> NewProducts { get; set; }
+        public IEnumerable<Product> SaleProducts { get; set; }
         public DetailModel(IProductData productData)
         {
             this.productData = productData;
@@ -20,6 +22,8 @@ namespace ITShop.Pages.Products
         public void OnGet(int id)
         {
             Product = productData.GetProductById(id);
+            NewProducts = productData.GetFirtsFiveNewProducts();
+            SaleProducts = productData.GetFirstFiveDiscountedProducts();
         }
     }
 }

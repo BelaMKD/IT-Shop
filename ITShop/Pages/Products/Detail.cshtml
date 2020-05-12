@@ -1,8 +1,96 @@
-﻿@page
+﻿@page "{id}"
 @model ITShop.Pages.Products.DetailModel
 @{
     ViewData["Title"] = "Detail";
 }
 
-<h1>Detail</h1>
 
+@section Styles{
+    <link href="~/css/detail.css" rel="stylesheet" />
+}
+
+<div class="product_details">
+    <div class="container">
+        <div class="row details_row">
+
+            <!-- Product Image -->
+            <div class="col-lg-6">
+                <div class="details_image">
+                    <div class="details_image_large">
+                        <img src="@Model.Product.ImagePath" asp-append-version="true">
+
+
+
+                        <div class="product_extra product_new">
+                            @if (Model.NewProducts.Contains(Model.Product))
+                            {
+                                <a class="new" asp-page="/Index" asp-fragment="headerNew">New</a>
+                            }
+                            @if (Model.SaleProducts.Contains(Model.Product))
+                            {
+                                <a class="sale" asp-page="/Index" asp-fragment="headerDiscount">Sale</a>
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Product Content -->
+            <div class="col-lg-6">
+                <div class="details_content">
+                    <div class="details_name">@Model.Product.Name</div>
+                    @if (Model.Product.Discount != 0)
+                    {
+                        <div class="details_discount">@Model.Product.Price.ToString("C")</div>
+                        <div class="details_price">@Model.Product.TotalPrice.ToString("C")</div>
+                    }
+                    else
+                    {
+                        <div class="details_price">@Model.Product.TotalPrice.ToString("C")</div>
+                    }
+
+                    <!-- In Stock -->
+                    <div class="in_stock_container">
+                        <div class="availability">Availability:</div>
+                        @if (Model.Product.Quantity > 0)
+                        {
+                            <span>In Stock</span>
+                        }
+                        else
+                        {
+                            <span style="color:red">Out Of Stock</span>
+                        }
+
+                    </div>
+                    <div class="in_stock_container">
+                        <div class="availability">Category:</div>
+                        <span style="color:#6c6a74">@Model.Product.Category.Type</span>
+                    </div>
+
+                    <!-- Product Quantity -->
+                    <div class="product_quantity_container">
+                        @if (Model.Product.Quantity > 0)
+                        {
+                            <div class="button cart_button"><a asp-page="/Cart/ShoppingCart" asp-route-id="@Model.Product.Id" asp-page-handler="Buy">Add to cart</a></div>
+                        }
+                        else
+                        {
+                            <div class="button cart_button"><a onclick="alert('Out Of Stock')">Add to cart</a></div>
+                        }
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row description_row">
+            <div class="col">
+                <div class="description_title_container">
+                    <div class="description_title">Description</div>
+                </div>
+                <div class="description_text">
+                    <p>@Model.Product.Description</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -26,7 +26,9 @@ namespace Data.SqlData
 
         public Category GetCategoryById(int id)
         {
-            return dbContext.Categories.SingleOrDefault(x => x.Id == id);
+            return dbContext.Categories
+                .Include(x=>x.Products)
+                .SingleOrDefault(x => x.Id == id);
         }
     }
 }

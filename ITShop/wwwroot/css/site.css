@@ -58,6 +58,8 @@ html {
   min-height: 100%;
 }
 
+
+
 body {
     /* Margin bottom by footer height */
     background-image: linear-gradient(to right,#343a40, #fff, #fff, #fff, #fff, #343a40);
