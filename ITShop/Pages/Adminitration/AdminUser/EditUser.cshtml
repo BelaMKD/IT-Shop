@@ -1,0 +1,54 @@
+﻿@page
+@model ITShop.Pages.Adminitration.AdminUser.EditUserModel
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+<h2>Edit user</h2>
+
+<form asp-controller="AdminUser" asp-action="EditUser" method="post" class="form-horizontal" role="form">
+    <h4>You can change the user details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="UserEdit.Id" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserEdit.Id" class="form-control" readonly="readonly" />
+            <span asp-validation-for="UserEdit.Id" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserEdit.UserName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserEdit.UserName" class="form-control" />
+            <span asp-validation-for="UserEdit.UserName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserEdit.Email" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserEdit.Email" class="form-control" />
+            <span asp-validation-for="UserEdit.Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <select asp-for="UserEdit.MembershipId" asp-items="@Model.Memberships" class="form-control">
+                <option value="">Choose Membership</option>
+            </select>
+
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Save user" />
+            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+        </div>
+    </div>
+</form>
+

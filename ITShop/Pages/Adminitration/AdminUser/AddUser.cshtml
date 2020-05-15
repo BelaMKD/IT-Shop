@@ -1,0 +1,54 @@
+﻿@page
+@model ITShop.Pages.Adminitration.AdminUser.AddUserModel
+@{
+    ViewData["Title"] = "AddUser";
+}
+
+<h2>Create a new user</h2>
+
+<form method="post" class="form-horizontal" role="form">
+    <h4>Enter the user details below</h4>
+    <hr />
+    <div asp-validation-summary="All" class="text-danger"></div>
+
+    <div class="form-group">
+        <label asp-for="UserNew.UserName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserNew.UserName" class="form-control" />
+            <span asp-validation-for="UserNew.UserName" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="UserNew.Email" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="UserNew.Email" class="form-control" />
+            <span asp-validation-for="UserNew.Email" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Password" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="Password" class="form-control" />
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <div class="col-md-10">
+            <select asp-for="UserNew.MembershipId" asp-items="@Model.Memberships" class="form-control">
+                <option value="">Choose Membership</option>
+            </select>
+            
+        </div>
+    </div>
+
+
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-primary" value="Create user" />
+        </div>
+    </div>
+</form>
+
