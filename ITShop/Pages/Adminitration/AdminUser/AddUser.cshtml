@@ -14,7 +14,7 @@
     <div class="form-group">
         <label asp-for="UserNew.UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="UserNew.UserName" class="form-control" />
+            <input asp-for="UserNew.UserName" class="form-control" required />
             <span asp-validation-for="UserNew.UserName" class="text-danger"></span>
         </div>
     </div>
@@ -22,7 +22,7 @@
     <div class="form-group">
         <label asp-for="UserNew.Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="UserNew.Email" class="form-control" />
+            <input asp-for="UserNew.Email" class="form-control" required type="email" />
             <span asp-validation-for="UserNew.Email" class="text-danger"></span>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="form-group">
         <label asp-for="Password" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="Password" class="form-control" />
+            <input asp-for="Password" class="form-control" required />
             <span asp-validation-for="Password" class="text-danger"></span>
         </div>
     </div>

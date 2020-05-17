@@ -24,5 +24,23 @@ namespace ITShop.Pages.Adminitration.AdminUser
                 .Include(x=>x.Membership)
                 .ToList();
         }
+        public async Task<IActionResult> OnPostDeleteUser(string id)
+        {
+            var user = await userManager.FindByIdAsync(id);
+         
+            if (user != null && user != await userManager.GetUserAsync(User))
+            {
+                IdentityResult result = await userManager.DeleteAsync(user);
+                if (result.Succeeded)
+                    return RedirectToAction("./ListUser");
+                else
+                    ModelState.AddModelError("", "Something went wrong while deleting this user.");
+            }
+            else
+            {
+                ModelState.AddModelError("", "This user can't be found");
+            }
+            return RedirectToAction("./ListUser");
+        }
     }
 }

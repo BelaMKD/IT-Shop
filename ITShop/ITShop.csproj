@@ -24,7 +24,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Adminitration\AdminRole\" />
     <Folder Include="wwwroot\images\Laptops\" />
     <Folder Include="wwwroot\images\Mobiles\" />
     <Folder Include="wwwroot\images\Computers\" />

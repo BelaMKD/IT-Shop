@@ -22,7 +22,7 @@
     <div class="form-group">
         <label asp-for="UserEdit.UserName" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="UserEdit.UserName" class="form-control" />
+            <input asp-for="UserEdit.UserName" class="form-control" required />
             <span asp-validation-for="UserEdit.UserName" class="text-danger"></span>
         </div>
     </div>
@@ -30,7 +30,7 @@
     <div class="form-group">
         <label asp-for="UserEdit.Email" class="col-md-2 control-label"></label>
         <div class="col-md-10">
-            <input asp-for="UserEdit.Email" class="form-control" />
+            <input asp-for="UserEdit.Email" class="form-control" required type="email" />
             <span asp-validation-for="UserEdit.Email" class="text-danger"></span>
         </div>
     </div>
