@@ -31,7 +31,7 @@ namespace ITShop.Pages.Adminitration.AdminRole
 
             if (result.Succeeded)
             {
-                return RedirectToAction("./ListRoles");
+                return RedirectToPage("./ListRoles");
             }
 
             foreach (IdentityError error in result.Errors)

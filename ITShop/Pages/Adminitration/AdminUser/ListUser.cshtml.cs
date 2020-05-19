@@ -32,13 +32,13 @@ namespace ITShop.Pages.Adminitration.AdminUser
             {
                 IdentityResult result = await userManager.DeleteAsync(user);
                 if (result.Succeeded)
-                    return RedirectToAction("./ListUser");
+                    return RedirectToPage("./ListUser");
                 else
                     ModelState.AddModelError("", "Something went wrong while deleting this user.");
             }
             else
             {
-                ModelState.AddModelError("", "This user can't be found");
+                ModelState.AddModelError("", "This user can't be found / deleted");
             }
             return RedirectToAction("./ListUser");
         }

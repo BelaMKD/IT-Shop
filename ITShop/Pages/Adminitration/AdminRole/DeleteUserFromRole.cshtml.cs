@@ -7,22 +7,21 @@ using Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace ITShop.Pages.Adminitration.AdminRole
 {
-    public class AddUserToRoleModel : PageModel
+    public class DeleteUserFromRoleModel : PageModel
     {
         private readonly RoleManager<IdentityRole> roleManager;
         private readonly UserManager<ApplicationUser> userManager;
-        public List<SelectListItem> Users { get; set; }
+        public ApplicationUser UserDelete { get; set; }
         [BindProperty]
         public IdentityRole Role { get; set; }
-        [BindProperty, Required]
-        public string Name { get; set; }
-        [BindProperty]
+        [Display(Name = "Users")]
         public List<string> Names { get; set; }
-        public AddUserToRoleModel(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
+        [Required, BindProperty]
+        public string Name { get; set; }
+        public DeleteUserFromRoleModel(RoleManager<IdentityRole> roleManager, UserManager<ApplicationUser> userManager)
         {
             this.roleManager = roleManager;
             this.userManager = userManager;
@@ -37,7 +36,7 @@ namespace ITShop.Pages.Adminitration.AdminRole
             }
             foreach (var user in userManager.Users)
             {
-                if (user!=null && !await userManager.IsInRoleAsync(user, Role.Name))
+                if (user!=null && await userManager.IsInRoleAsync(user, Role.Name))
                 {
                     Names.Add(user.UserName);
                 }
@@ -48,23 +47,21 @@ namespace ITShop.Pages.Adminitration.AdminRole
         {
             if (!ModelState.IsValid)
             {
-                //var roleTemp = await roleManager.FindByIdAsync(userRoleViewModel.RoleId);
-                List<string> names = new List<string>();
-                var role1 = await roleManager.FindByIdAsync(Role.Id);
-
+                var roleTemp = await roleManager.FindByIdAsync(Role.Id);
                 foreach (var userItem in userManager.Users)
                 {
-                    if (!await userManager.IsInRoleAsync(userItem, role1.Name))
+                    if (!await userManager.IsInRoleAsync(userItem, roleTemp.Name))
                     {
-                        names.Add(userItem.UserName);
+                        Names.Add(userItem.UserName);
                     }
                 }
                 return Page();
             }
+
             var user = await userManager.FindByNameAsync(Name);
             var role = await roleManager.FindByIdAsync(Role.Id);
 
-            var result = await userManager.AddToRoleAsync(user, role.Name);
+            var result = await userManager.RemoveFromRoleAsync(user, role.Name);
 
             if (result.Succeeded)
             {

@@ -28,7 +28,7 @@ else
                         <a class="btn btn-sm btn-primary" asp-page="EditRole" asp-route-roleId="@role.Id">
                             <i class="fas fa-edit"></i>
                         </a>
-                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this role?');">
+                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Do you really want to delete this role?');" asp-route-roleId="@role.Id">
                             <i class="fas fa-trash"></i>
                         </button>
                     </form>

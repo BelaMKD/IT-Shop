@@ -28,7 +28,7 @@ namespace ITShop.Pages.Adminitration.AdminRole
 
             if (Role == null)
             {
-                return RedirectToAction("Index");
+                return RedirectToPage("./ListRoles");
             }
 
             //var editRoleViewModel = new EditRoleViewModel

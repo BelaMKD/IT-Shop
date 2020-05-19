@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 using Core;
@@ -19,7 +20,7 @@ namespace ITShop.Pages.Adminitration.AdminUser
         [BindProperty]
         public ApplicationUser UserNew { get; set; }
         public List<SelectListItem> Memberships { get; set; }
-        [BindProperty]
+        [BindProperty, Required]
         public string Password { get; set; }
         public AddUserModel(UserManager<ApplicationUser> userManager, IMembershipData membershipData)
         {
@@ -40,6 +41,11 @@ namespace ITShop.Pages.Adminitration.AdminUser
         {
             if (!ModelState.IsValid)
             {
+                Memberships = membershipData.GetMemberships().Select(x => new SelectListItem
+                {
+                    Value = x.Id.ToString(),
+                    Text = x.Type
+                }).ToList();
                 return Page();
             }
             if (UserNew.MembershipId.HasValue)
