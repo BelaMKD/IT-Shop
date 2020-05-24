@@ -27,10 +27,10 @@
                         <a class="nav-link" asp-page="/Index">Home</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" asp-page="/Products/List">Products</a>
+                        <a class="nav-link" href="contact.html">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">Contact</a>
+                        <a class="nav-link" href="contact.html">My Orders</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-page="/Cart/ShoppingCart">
@@ -53,15 +53,17 @@
                         </form>
                     </li>
 
-                    <li class="nav-item dropdown">
-                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                            Adminitration
-                        </a>
-                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" asp-area="" asp-page="/Adminitration/AdminUser/ListUser">Manage Users</a>
-                            <a class="dropdown-item" asp-area="" asp-page="/Adminitration/AdminRole/ListRoles">Manage Roles</a>
-                        </div>
-                    </li>
+                    @*<li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                Adminitration
+            </a>
+
+            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                <a class="dropdown-item" asp-area="" asp-page="/Adminitration/AdminUser/ListUser">Manage Users</a>
+                <a class="dropdown-item" asp-area="" asp-page="/Adminitration/AdminRole/ListRoles">Manage Roles</a>
+            </div>
+
+        </li>*@
 
                     @*<li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
