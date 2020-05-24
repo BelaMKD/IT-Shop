@@ -38,7 +38,14 @@ namespace ITShop.Pages.Adminitration.AdminUser
             }
             else
             {
-                ModelState.AddModelError("", "This user can't be found / deleted");
+                if (user==null)
+                {
+                    ModelState.AddModelError("", "This user can't be found !");
+                }
+                if (user == await userManager.GetUserAsync(User))
+                {
+                    ModelState.AddModelError("", "You can't delete the user that is currently logged in");
+                }
             }
             return RedirectToAction("./ListUser");
         }
