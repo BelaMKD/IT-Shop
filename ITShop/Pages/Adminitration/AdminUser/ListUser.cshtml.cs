@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Core;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Microsoft.EntityFrameworkCore;
 
@@ -47,7 +48,10 @@ namespace ITShop.Pages.Adminitration.AdminUser
                     ModelState.AddModelError("", "You can't delete the user that is currently logged in");
                 }
             }
-            return RedirectToAction("./ListUser");
+            Users = userManager.Users
+                .Include(x => x.Membership)
+                .ToList();
+            return Page();
         }
     }
 }

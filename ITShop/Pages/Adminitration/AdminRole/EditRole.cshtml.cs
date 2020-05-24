@@ -16,6 +16,7 @@ namespace ITShop.Pages.Adminitration.AdminRole
         [BindProperty]
         public IdentityRole Role { get; set; }
         public List<string> Names { get; set; }
+        public string RoleName { get; set; }
         public EditRoleModel(UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             this.userManager = userManager;
@@ -30,14 +31,6 @@ namespace ITShop.Pages.Adminitration.AdminRole
             {
                 return RedirectToPage("./ListRoles");
             }
-
-            //var editRoleViewModel = new EditRoleViewModel
-            //{
-            //    Id = role.Id,
-            //    RoleName = role.Name,
-            //    Users = new List<string>()
-            //};
-
             foreach (var user in userManager.Users)
             {
                 if (await userManager.IsInRoleAsync(user, Role.Name))
@@ -56,18 +49,19 @@ namespace ITShop.Pages.Adminitration.AdminRole
 
             if (Role != null)
             {
-
-                var result = await roleManager.UpdateAsync(Role);
+                var tempRole = await roleManager.FindByIdAsync(Role.Id);
+                tempRole.Name = Role.Name;
+                var result = await roleManager.UpdateAsync(tempRole);
 
                 if (result.Succeeded)
-                    return RedirectToAction("Index");
+                    return RedirectToPage("./ListRoles");
 
                 ModelState.AddModelError("", "Role not updated, something went wrong.");
 
                 return Page();
             }
 
-            return RedirectToAction("Index");
+            return RedirectToPage("./ListRoles");
         }
 
     }

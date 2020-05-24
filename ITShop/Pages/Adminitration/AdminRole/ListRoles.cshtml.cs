@@ -24,7 +24,6 @@ namespace ITShop.Pages.Adminitration.AdminRole
         }
         public async Task<IActionResult> OnPost(string roleId)
         {
-            roleId = "asdasd";
             Role = await roleManager.FindByIdAsync(roleId);
             if (Role != null)
             {
@@ -37,7 +36,8 @@ namespace ITShop.Pages.Adminitration.AdminRole
             {
                 ModelState.AddModelError("", "This role can't be found.");
             }
-            return RedirectToPage("./ListRoles");
+            Roles = roleManager.Roles;
+            return Page();
 
         }
     }

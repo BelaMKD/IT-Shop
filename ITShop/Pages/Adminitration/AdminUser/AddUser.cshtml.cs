@@ -20,7 +20,7 @@ namespace ITShop.Pages.Adminitration.AdminUser
         [BindProperty]
         public ApplicationUser UserNew { get; set; }
         public List<SelectListItem> Memberships { get; set; }
-        [BindProperty, Required]
+        [BindProperty, Required, DataType(DataType.Password)]
         public string Password { get; set; }
         public AddUserModel(UserManager<ApplicationUser> userManager, IMembershipData membershipData)
         {

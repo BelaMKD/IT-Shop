@@ -4,32 +4,40 @@
     ViewData["Title"] = "ListUser";
 }
 
-<h2>User management</h2>
+<h2 style="margin-top:2em">User management</h2>
+
+<div asp-validation-summary="All" class="text-danger"></div>
 
 @if (!Model.Users.Any())
 {
-    <tr><td colspan="3" class="text-center">No User Accounts</td></tr>
+    <tr><td colspan="3" class="text-center" style="margin-top:20px">No User Accounts</td></tr>
 }
 else
 {
-    <table class="table">
-        <tr>
-            <th>User ID</th>
-            <th>User name</th>
-            <th>Email</th>
-            <th>Membership</th>
-            <th>Actions</th>
-        </tr>
-
+    <table class="table" style="margin-top:20px; background-color:white;">
+        <thead class="thead-dark">
+            <tr>
+                <th>User name</th>
+                <th>Email</th>
+                <th>Membership</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
         @foreach (var user in Model.Users)
         {
             <tr>
-                <td>@user.Id</td>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>@user.Membership?.Type</td>
-                <td class="row">
-                    <a class="btn btn-sm btn-primary" asp-page="./EditUser" asp-route-id="@user.Id">
+                @if (@user.Membership?.Type == null)
+                {
+                    <td>No Membership</td>
+                }
+                else
+                {
+                    <td>@user.Membership?.Type</td>
+                }
+                <td class="d-flex">
+                    <a class="btn btn-sm btn-primary" asp-page="./EditUser" asp-route-id="@user.Id" style="margin-right:5px">
                         <i class="fas fa-edit"></i>
                     </a>
                     <form asp-page-handler="DeleteUser" asp-route-id="@user.Id" method="post">
@@ -44,7 +52,7 @@ else
 }
 
 <p>
-    <a class="btn btn-primary" asp-page="./AddUser">Add new user</a>
+    <a class="btn btn-success" asp-page="./AddUser">Add new user</a>
 </p>
 
 

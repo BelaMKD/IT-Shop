@@ -4,7 +4,7 @@
     ViewData["Title"] = "EditRole";
 }
 
-<h2>Edit role</h2>
+<h2 style="margin-top:2em">Edit role</h2>
 
 <form asp-controller="AdminRole" asp-action="EditRole" method="post" class="form-horizontal" role="form">
     <h4>You can change the role details below</h4>
@@ -30,7 +30,7 @@
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
             <input type="submit" class="btn btn-primary" value="Save role" />
-            <a asp-action="Index" class="btn btn-primary">Cancel</a>
+            <a asp-page="./ListRoles" class="btn btn-primary">Cancel</a>
         </div>
     </div>
 </form>

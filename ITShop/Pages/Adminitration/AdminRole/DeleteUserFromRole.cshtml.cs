@@ -36,7 +36,7 @@ namespace ITShop.Pages.Adminitration.AdminRole
             }
             foreach (var user in userManager.Users)
             {
-                if (user!=null && await userManager.IsInRoleAsync(user, Role.Name))
+                if (await userManager.IsInRoleAsync(user, Role.Name))
                 {
                     Names.Add(user.UserName);
                 }
@@ -50,7 +50,7 @@ namespace ITShop.Pages.Adminitration.AdminRole
                 var roleTemp = await roleManager.FindByIdAsync(Role.Id);
                 foreach (var userItem in userManager.Users)
                 {
-                    if (!await userManager.IsInRoleAsync(userItem, roleTemp.Name))
+                    if (await userManager.IsInRoleAsync(userItem, roleTemp.Name))
                     {
                         Names.Add(userItem.UserName);
                     }
