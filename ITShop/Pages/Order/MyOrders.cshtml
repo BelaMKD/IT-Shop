@@ -1,0 +1,69 @@
+﻿@page
+@model ITShop.Pages.Order.MyOrdersModel
+@{
+    ViewData["Title"] = "MyOrders";
+    var i = 1;
+}
+
+
+@if (!Model.Orders.Any())
+{
+    <div style="margin-top:2em">
+        <p>No Order so far! Go ahead and place some order.</p>
+    </div>
+    return;
+}
+
+<table class="table table-striped text-center" style="margin-top:2em">
+    <thead class="thead-dark">
+        <tr>
+            <th>#</th>
+            <th>Billing Address</th>
+            <th>Order Summary</th>
+            <th>Total Ammount</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model.Orders)
+        {
+            <tr>
+                <td class="text-justify"><strong>@i.</strong></td>
+                <td class="text-justify">
+                    <div>
+                        @order.FirstName @order.LastName,
+                    </div>
+                    <div>
+                        @order.City,
+                        @order.Country
+                    </div>
+                    <br />
+                    <div>
+                        @order.DateOrdered.ToString("dd/MM/yyyy")
+                    </div>
+                </td>
+                <td>
+                    <table class="table">
+                        <tbody>
+                            @foreach (var item in order.OrderDetails)
+                            {
+                                <tr>
+                                    <td>
+                                        @item.Product.Name
+                                    </td>
+                                    <td>
+                                        @item.Product.TotalPrice.ToString("c") * @item.Quantity
+
+                                    </td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </td>
+                <td>
+                    @order.OrderTotal.ToString("c")
+                </td>
+            </tr>
+            i++;
+        }
+    </tbody>
+</table>

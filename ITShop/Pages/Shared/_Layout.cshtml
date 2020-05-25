@@ -30,20 +30,20 @@
                         <a class="nav-link" href="contact.html">Contact</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contact.html">My Orders</a>
+                        <a class="nav-link" asp-page="/Order/MyOrders">My Orders</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" asp-page="/Cart/ShoppingCart">
                             <i class="fa fa-shopping-cart"></i>
-                            @if (Context.Session.GetObjectFromJson<List<BusinessLayer.ShoppingCart>>("CartItems") != null)
+                            @*@if (Context.Session.GetObjectFromJson<List<BusinessLayer.ShoppingCart>>("CartItems") != null)
                             {
                                 <span class="numberShopItems">@(Context.Session.GetObjectFromJson<List<BusinessLayer.ShoppingCart>>("CartItems").Count())</span>
                             }
                             else
                             {
                                 <span class="numberShopItems">0</span>
-                            }
-
+                            }*@
+                            <vc:shopping-cart></vc:shopping-cart>
                         </a>
                     </li>
                     <li>
@@ -52,53 +52,6 @@
                             <button class="btn btn-success" type="submit">Search</button>
                         </form>
                     </li>
-
-                    @*<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Adminitration
-            </a>
-
-            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                <a class="dropdown-item" asp-area="" asp-page="/Adminitration/AdminUser/ListUser">Manage Users</a>
-                <a class="dropdown-item" asp-area="" asp-page="/Adminitration/AdminRole/ListRoles">Manage Roles</a>
-            </div>
-
-        </li>*@
-
-                    @*<li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownPortfolio" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Portfolio
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownPortfolio">
-                <a class="dropdown-item" href="portfolio-1-col.html">1 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-2-col.html">2 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-3-col.html">3 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-4-col.html">4 Column Portfolio</a>
-                <a class="dropdown-item" href="portfolio-item.html">Single Portfolio Item</a>
-            </div>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Blog
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                <a class="dropdown-item" href="blog-home-1.html">Blog Home 1</a>
-                <a class="dropdown-item" href="blog-home-2.html">Blog Home 2</a>
-                <a class="dropdown-item" href="blog-post.html">Blog Post</a>
-            </div>
-        </li>
-        <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownBlog" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                Other Pages
-            </a>
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdownBlog">
-                <a class="dropdown-item" href="full-width.html">Full Width Page</a>
-                <a class="dropdown-item" href="sidebar.html">Sidebar Page</a>
-                <a class="dropdown-item" href="faq.html">FAQ</a>
-                <a class="dropdown-item" href="404.html">404</a>
-                <a class="dropdown-item" href="pricing.html">Pricing Table</a>
-            </div>
-        </li>*@
                 </ul>
                 <partial name="_LoginPartial" />
             </div>
@@ -106,9 +59,6 @@
     </nav>
 
     @RenderSection("Index", required: false)
-
-
-
 
     <div class="container">
         <main role="main" class="pb-3">

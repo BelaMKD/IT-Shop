@@ -1,29 +1,34 @@
 ﻿@page
-@model ITShop.OrdersModel
+@model ITShop.Pages.Order.AllOrdersModel
 @{
-    ViewData["Title"] = "Orders";
+    ViewData["Title"] = "AllOrders";
+    var i = 1;
 }
 
-@if (Model.Order?.Count() <= 0)
+@if (!Model.Orders.Any())
 {
-    <div>
-        <p>No Order so far! Go ahead and place some order.</p>
+    <div style="margin-top:2em">
+        <p>No Order so far!</p>
     </div>
     return;
 }
 
-<table class="table table-striped text-center">
-    <thead>
+<table class="table table-striped text-center" style="margin-top:2em">
+    <thead class="thead-dark">
         <tr>
+            <th>#</th>
+            <th>User</th>
             <th>Billing Address</th>
             <th>Order Summary</th>
             <th>Total Ammount</th>
         </tr>
     </thead>
     <tbody>
-        @foreach (var order in Model.Order)
+        @foreach (var order in Model.Orders)
         {
             <tr>
+                <td class="text-justify"><strong>@i.</strong></td>
+                <td class="text-justify">@order.User.Email</td>
                 <td class="text-justify">
                     <div>
                         @order.FirstName @order.LastName,
@@ -59,7 +64,9 @@
                     @order.OrderTotal.ToString("c")
                 </td>
             </tr>
+            i++;
         }
     </tbody>
 </table>
+
 

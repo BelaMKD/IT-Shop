@@ -7,7 +7,7 @@ namespace Data.Interface
 {
     public interface IOrderData
     {
-        IEnumerable<Order> GetOrdersByUserId(string id);
+        IEnumerable<Order> GetOrdersByUserId(string userId);
         Order CreateOrder(Order order);
         IEnumerable<Order> GetAllOrders();
         int Commit();

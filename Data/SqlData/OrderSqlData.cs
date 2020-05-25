@@ -32,14 +32,16 @@ namespace Data.SqlData
             return dbContext.Orders
                 .Include(x => x.OrderDetails)
                 .ThenInclude(z => z.Product)
+                .Include(x => x.User)
+                .OrderBy(x => x.User.Email)
                 .ToList();
                 
         }
 
-        public IEnumerable<Order> GetOrdersByUserId(string id)
+        public IEnumerable<Order> GetOrdersByUserId(string userId)
         {
             return dbContext.Orders
-                .Where(x => x.UserId == id)
+                .Where(x => x.UserId == userId)
                 .Include(x => x.OrderDetails)
                 .ThenInclude(z => z.Product)
                 .ToList();
