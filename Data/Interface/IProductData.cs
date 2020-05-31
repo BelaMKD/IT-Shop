@@ -11,6 +11,8 @@ namespace Data.Interface
         IEnumerable<Product> GetProducts(string name=null);
         IEnumerable<Product> GetFirtsFiveNewProducts();
         IEnumerable<Product> GetFirstFiveDiscountedProducts();
+        IEnumerable<Product> GetFirstFiveProductsWithLowestQuantity();
+
         Product AddProduct(Product product);
         Product UpdateProduct(Product product);
         Product DeleteProduct(int id);

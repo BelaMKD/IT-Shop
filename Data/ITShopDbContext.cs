@@ -16,5 +16,6 @@ namespace Data
         public DbSet<Order> Orders { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Membership> Memberships { get; set; }
+        public DbSet<OrderDetail> OrderDetail { get; set; }
     }
 }

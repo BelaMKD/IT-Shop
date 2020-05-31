@@ -62,7 +62,7 @@ html {
 
 body {
     /* Margin bottom by footer height */
-    background-image: linear-gradient(to right,#343a40, #fff, #fff, #fff, #fff, #343a40);
+    background-image: linear-gradient(to right, #343a40, #fff, #fff, #fff, #fff, #343a40);
     margin-bottom: 60px;
 }
 .footer {

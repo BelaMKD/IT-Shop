@@ -32,6 +32,7 @@ namespace Data.SqlData
             return dbContext.Orders
                 .Include(x => x.OrderDetails)
                 .ThenInclude(z => z.Product)
+                .ThenInclude(y=>y.Category)
                 .Include(x => x.User)
                 .OrderBy(x => x.User.Email)
                 .ToList();

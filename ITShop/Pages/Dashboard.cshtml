@@ -1,0 +1,509 @@
+﻿@page
+@model ITShop.Pages.DashboardModel
+@{
+    ViewData["Title"] = "Dashboard";
+
+    var XLabels = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ByDate.Select(x => x.DateTime.ToString("dd/MM/yyyy")).ToList());
+    var YValues = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ByDate.Select(x => x.NumberOfProducts).ToList());
+
+    var XLabelsPQ = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ProductQuantity.Select(x => x.ProductName).ToList());
+    var YValuesPQ = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ProductQuantity.Select(x => x.NumberOfProducts).ToList());
+
+    var XLabelsCQ = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ByCategory.Select(x => x.CategoryName).ToList());
+    var YValuesCQ = Newtonsoft.Json.JsonConvert.SerializeObject(Model.ByCategory.Select(x => x.NumberOfProducts).ToList());
+
+    var XLabelsTop3 = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Top3.Select(x => x.ProductName).ToList());
+    var YValuesTop3 = Newtonsoft.Json.JsonConvert.SerializeObject(Model.Top3.Select(x => x.NumberOfProducts).ToList());
+
+    var XLabelsMember = Newtonsoft.Json.JsonConvert.SerializeObject(Model.UserMemberships.Select(x => x.MembershipType).ToList());
+    var YValuesMember = Newtonsoft.Json.JsonConvert.SerializeObject(Model.UserMemberships.Select(x => x.NumberOfUsers).ToList());
+
+}
+
+@section Styles{
+    <link href="~/css/sb-admin-2.min.css" rel="stylesheet" />
+    <style>
+        #myDiv:hover {
+            background-color: #fafff5;
+            transform: scale(1.06);
+            z-index: 1000;
+            transition: all .9s ease 0s;
+        }
+    </style>
+}
+
+
+
+<!-- Page Heading -->
+<!-- Content Row -->
+<div class="row" style="margin-top:2em">
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div id="myDiv" class="card border-left-primary shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">Total Earnings</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalEarnings.ToString("C")</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-calendar fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div id="myDiv" class="card border-left-success shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Products Sold</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.ProductSold</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-dollar-sign fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Earnings (Monthly) Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div id="myDiv" class="card border-left-info shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Users</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.NumberOfUsers</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pending Requests Card Example -->
+    <div class="col-xl-3 col-md-6 mb-4">
+        <div id="myDiv" class="card border-left-warning shadow h-100 py-2">
+            <div class="card-body">
+                <div class="row no-gutters align-items-center">
+                    <div class="col mr-2">
+                        <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Total Orders</div>
+                        <div class="h5 mb-0 font-weight-bold text-gray-800">@Model.TotalOrders</div>
+                    </div>
+                    <div class="col-auto">
+                        <i class="fas fa-comments fa-2x text-gray-300"></i>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content Row -->
+
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-xl-8 col-lg-7">
+        <div id="myDiv" class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">By Name</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <canvas id="myBarChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <!-- Pie Chart -->
+    <div class="col-xl-4 col-lg-5">
+        <div id="myDiv" class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Top 3</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-4 pb-2 mt-3">
+                    <canvas id="myPieChart"></canvas>
+                </div>
+                <div class="mt-5 text-center small">
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+
+    <div class="col-xl-6 col-lg-5">
+        <div id="myDiv" class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">By Category</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie mt-3">
+                    <canvas id="myPolarAreaChart"></canvas>
+                </div>
+                <div class="mt-4 text-center small">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Content Column -->
+    <div class="col-lg-6 mb-4">
+
+        <!-- Project Card Example -->
+        <div id="myDiv" class="card shadow">
+            <div class="card-header py-3">
+                <h6 class="m-0 font-weight-bold text-primary">Low Quantity</h6>
+            </div>
+            <div class="card-body">
+                @foreach (var product in Model.ProductsWithLowestQuantity)
+                {
+                    <h4 class="small font-weight-bold">@product.Name<span class="float-right">Qty: @product.Quantity</span></h4>
+                    <div class="progress mb-4">
+                        <div class="progress-bar bg-danger" role="progressbar" style="width: @Model.ProgressBarMetod.CalculateProgressBar(product.Quantity)%" aria-valuemin="0" aria-valuemax="100">@Model.ProgressBarMetod.CalculateProgressBar(product.Quantity)%</div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+<div class="row">
+
+    <!-- Area Chart -->
+    <div class="col-sm-8">
+        <div id="myDiv" class="card shadow">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Number Of Products Sold By Date</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <canvas id="myAreaChart"></canvas>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-xl-4 col-lg-5">
+        <div id="myDiv" class="card shadow mb-4">
+            <!-- Card Header - Dropdown -->
+            <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                <h6 class="m-0 font-weight-bold text-primary">Memberships</h6>
+
+            </div>
+            <!-- Card Body -->
+            <div class="card-body">
+                <div class="chart-pie pt-5 mt-3">
+                    <canvas id="myBarChartMember"></canvas>
+                </div>
+                <div class="mt-5 text-center small">
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+@section Scripts{
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.2/Chart.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
+    <script type="text/javascript">
+
+        $(function () {
+
+        var chartNameLine = "myBarChart";
+        var ctx = document.getElementById(chartNameLine).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabelsPQ),
+                datasets: [{
+                    label: "",
+                    data: @Html.Raw(YValuesPQ),
+                    label: "Sold",
+                    backgroundColor: [
+                        'rgb(78, 115, 223)',
+                        'rgb(28, 200, 138)',
+                        'rgb(54, 185, 204)',
+                        'rgb(246, 194, 62)',
+                        'rgb(231, 74, 59)',
+                        'rgb(133, 135, 150)'
+                    ],
+                    borderColor: [
+                        'rgb(78, 115, 223)',
+                        'rgb(28, 200, 138)',
+                        'rgb(54, 185, 204)',
+                        'rgb(246, 194, 62)',
+                        'rgb(231, 74, 59)',
+                        'rgb(133, 135, 150)'
+                    ]
+                }]
+            };
+            var myChart = new Chart(ctx, {
+                data: data,
+                type: 'bar',
+                options: {
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        displayColors: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                beginAtZero: true
+                            },
+                            gridLines: {
+                                display: true,
+                                color: "rgba(255,99,164,0.2)"
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                min: 0,
+                                beginAtZero: true
+                            },
+                            gridLines: {
+                                display: false
+                            }
+                        }]
+                    }
+                }
+            });
+
+        var chartNameLine = "myAreaChart";
+        var ctx = document.getElementById(chartNameLine).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabels),
+                datasets: [{
+                    label: "",
+                    data: @Html.Raw(YValues),
+                    label: "Sold",
+                    lineTension: 0.3,
+                    backgroundColor: "rgba(78, 115, 223, 0.05)",
+                    borderColor: "rgba(78, 115, 223, 1)",
+                    pointRadius: 3,
+                    pointBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHoverRadius: 3,
+                    pointHoverBackgroundColor: "rgba(78, 115, 223, 1)",
+                    pointHoverBorderColor: "rgba(78, 115, 223, 1)",
+                    pointHitRadius: 10,
+                    pointBorderWidth: 2
+                }]
+            };
+            var myChart = new Chart(ctx, {
+                data: data,
+                type: 'line',
+                options: {
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        displayColors: false
+                    },
+                    legend: {
+                        display: false
+                    }
+                }
+            });
+
+            var ctx = document.getElementById("myPieChart");
+            var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: {
+                    labels: @Html.Raw(XLabelsTop3),
+                    datasets: [{
+                        data: @Html.Raw(YValuesTop3),
+                        backgroundColor: [
+                            'rgb(78, 115, 223)',
+                            'rgb(28, 200, 138)',
+                            'rgb(54, 185, 204)',
+                            'rgb(246, 194, 62)',
+                            'rgb(231, 74, 59)',
+                            'rgb(133, 135, 150)'
+                        ],
+                        hoverBackgroundColor: [
+                            'rgb(78, 115, 223)',
+                            'rgb(28, 200, 138)',
+                            'rgb(54, 185, 204)',
+                            'rgb(246, 194, 62)',
+                            'rgb(231, 74, 59)',
+                            'rgb(133, 135, 150)'
+                        ],
+                        hoverBorderColor: [
+                            'rgb(78, 115, 223)',
+                            'rgb(28, 200, 138)',
+                            'rgb(54, 185, 204)',
+                            'rgb(246, 194, 62)',
+                            'rgb(231, 74, 59)',
+                            'rgb(133, 135, 150)'
+                        ],
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+
+                    cutoutPercentage: 80,
+                },
+            });
+
+
+            var ctx = document.getElementById("myPolarAreaChart");
+            var myPieChart = new Chart(ctx, {
+                type: 'polarArea',
+                data: {
+                    labels: @Html.Raw(XLabelsCQ),
+                    datasets: [{
+                        data: @Html.Raw(YValuesCQ),
+                        backgroundColor: [
+                            'rgb(78, 115, 223)',
+                            'rgb(28, 200, 138)',
+                            'rgb(54, 185, 204)',
+                            'rgb(246, 194, 62)',
+                            'rgb(231, 74, 59)',
+                            'rgb(133, 135, 150)'
+                        ],
+                        hoverBackgroundColor: [
+                            'rgb(78, 115, 223)',
+                            'rgb(28, 200, 138)',
+                            'rgb(54, 185, 204)',
+                            'rgb(246, 194, 62)',
+                            'rgb(231, 74, 59)',
+                            'rgb(133, 135, 150)'
+                        ],
+                        hoverBorderColor: [
+                            'rgb(78, 115, 223)',
+                            'rgb(28, 200, 138)',
+                            'rgb(54, 185, 204)',
+                            'rgb(246, 194, 62)',
+                            'rgb(231, 74, 59)',
+                            'rgb(133, 135, 150)'
+                        ],
+                    }],
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        xPadding: 15,
+                        yPadding: 15,
+                        displayColors: false,
+                        caretPadding: 10,
+                    },
+
+                    cutoutPercentage: 80,
+                },
+            });
+
+
+
+
+
+
+
+            var chartNameLine = "myBarChartMember";
+        var ctx = document.getElementById(chartNameLine).getContext('2d');
+        var data = {
+                labels: @Html.Raw(XLabelsMember),
+                datasets: [{
+                    label: "",
+                    data: @Html.Raw(YValuesMember),
+                     backgroundColor: [
+                        'rgb(78, 115, 223)',
+                        'rgb(28, 200, 138)',
+                        'rgb(54, 185, 204)',
+                        'rgb(246, 194, 62)',
+                        'rgb(231, 74, 59)',
+                        'rgb(133, 135, 150)'
+                    ],
+                    borderColor: [
+                        'rgb(78, 115, 223)',
+                        'rgb(28, 200, 138)',
+                        'rgb(54, 185, 204)',
+                        'rgb(246, 194, 62)',
+                        'rgb(231, 74, 59)',
+                        'rgb(133, 135, 150)'
+                    ]
+                }]
+            };
+            var myChart = new Chart(ctx, {
+                data: data,
+                type: 'bar',
+                options: {
+                    tooltips: {
+                        backgroundColor: "rgb(255,255,255)",
+                        bodyFontColor: "#858796",
+                        borderColor: '#dddfeb',
+                        borderWidth: 1,
+                        displayColors: false
+                    },
+                    legend: {
+                        display: false
+                    },
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                min: 0,
+                                beginAtZero: true
+                            }
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                min: 0,
+                                beginAtZero: true
+                            }
+                        }]
+                    }
+                }
+            });
+
+        });
+    </script>
+}

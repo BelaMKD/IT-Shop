@@ -1,5 +1,6 @@
 ﻿using Core;
 using Data.Interface;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,12 +18,14 @@ namespace Data.SqlData
         }
         public List<Membership> GetMemberships()
         {
-            return dbContext.Memberships.ToList();
+            return dbContext.Memberships
+                .ToList();
         }
 
         public Membership GetMembershipById(int id)
         {
-            return dbContext.Memberships.SingleOrDefault(x => x.Id == id);
+            return dbContext.Memberships
+                .SingleOrDefault(x => x.Id == id);
         }
     }
 }

@@ -39,6 +39,7 @@ namespace ITShop
             services.AddScoped<IOrderData, OrderSqlData>();
             services.AddScoped<IProductData, ProductSqlData>();
             services.AddScoped<IMembershipData, MembershipSqlData>();
+            services.AddScoped<IOrderDetailData, OrderDetailSqlData>();
             services.AddScoped<CartBL>();
             services.AddDbContextPool<ITShopDbContext>(option =>
             option.UseSqlServer(Configuration.GetConnectionString("ITShopDb")));

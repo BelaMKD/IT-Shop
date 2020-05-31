@@ -83,6 +83,9 @@ namespace ITShop
                 }
                 Order.OrderDetails = OrderDetails;
                 Order.UserId = ApplicationUser.Id;
+                //
+                Order.DateOrdered = DateTime.Now;
+                //
                 orderData.CreateOrder(Order);
                 orderData.Commit();
                 HttpContext.Session.Remove("CartItems");

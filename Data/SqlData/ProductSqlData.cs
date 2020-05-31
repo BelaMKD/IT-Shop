@@ -75,5 +75,13 @@ namespace Data.SqlData
                 .Take(4)
                 .ToList();
         }
+
+        public IEnumerable<Product> GetFirstFiveProductsWithLowestQuantity()
+        {
+            return dbContext.Products
+                .Take(5)
+                .OrderBy(x => x.Quantity)
+                .ToList();
+        }
     }
 }

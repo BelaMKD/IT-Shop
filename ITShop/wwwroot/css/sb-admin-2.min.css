@@ -1,0 +1,113 @@
+
+.shadow-sm {
+    box-shadow: 0 .125rem .25rem 0 rgba(58,59,69,.2) !important
+}
+
+.shadow {
+    box-shadow: 0 .15rem 1.75rem 0 rgba(58,59,69,.15) !important
+}
+
+.shadow-lg {
+    box-shadow: 0 1rem 3rem rgba(0,0,0,.175) !important
+}
+
+.shadow-none {
+    box-shadow: none !important
+}
+
+.text-primary {
+    color: #4e73df !important
+}
+
+.text-success {
+    color: #1cc88a !important
+}
+
+.text-info {
+    color: #36b9cc !important
+}
+
+.text-warning {
+    color: #f6c23e !important
+}
+
+.text-gray-300 {
+    color: #dddfeb !important
+}
+
+.text-gray-800 {
+    color: #5a5c69 !important
+}
+
+.border-left-primary {
+    border-left: .25rem solid #4e73df !important
+}
+
+
+
+.border-left-secondary {
+    border-left: .25rem solid #858796 !important
+}
+
+
+
+.border-left-success {
+    border-left: .25rem solid #1cc88a !important
+}
+
+
+.border-left-info {
+    border-left: .25rem solid #36b9cc !important
+}
+
+
+.border-left-warning {
+    border-left: .25rem solid #f6c23e !important
+}
+
+
+.border-left-danger {
+    border-left: .25rem solid #e74a3b !important
+}
+
+
+.border-left-light {
+    border-left: .25rem solid #f8f9fc !important
+}
+
+.border-left-dark {
+    border-left: .25rem solid #5a5c69 !important
+}
+
+
+.progress-sm {
+    height: .5rem
+}
+
+
+.chart-area {
+    position: relative;
+    height: 10rem;
+    width: 100%
+}
+
+@media (min-width:768px) {
+    .chart-area {
+        height: 20rem
+    }
+}
+
+
+
+
+.chart-pie {
+    position: relative;
+    height: 15rem;
+    width: 100%
+}
+
+@media (min-width:768px) {
+    .chart-pie {
+        height: calc(20rem - 43px) !important
+    }
+}

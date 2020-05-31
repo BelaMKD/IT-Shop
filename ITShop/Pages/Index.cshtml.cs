@@ -18,6 +18,7 @@ namespace ITShop.Pages
 
         public IEnumerable<Product> NewProducts { get; set; }
         public IEnumerable<Product> DiscountedProducts { get; set; }
+        public ProgressBar ProgressBarMetod { get; set; }
         public IndexModel(ILogger<IndexModel> logger, IProductData productData)
         {
             _logger = logger;
@@ -28,6 +29,7 @@ namespace ITShop.Pages
         {
             NewProducts = productData.GetFirtsFiveNewProducts();
             DiscountedProducts = productData.GetFirstFiveDiscountedProducts();
+            ProgressBarMetod = new ProgressBar();
         }
         public int CalculateProgressBar(int quantity)
         {
