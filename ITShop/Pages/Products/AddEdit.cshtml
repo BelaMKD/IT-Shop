@@ -6,7 +6,6 @@
 
 
 <form method="post" enctype="multipart/form-data">
-
     @if (Model.Product.Id == 0)
     {
         <h1>Add New Product</h1>
@@ -23,6 +22,8 @@
         <div class="col">
             <label asp-for="Product.Name"></label>
             <input class="form-control" asp-for="Product.Name">
+            <span asp-validation-for="Product.Name" class="text-danger"></span>
+
         </div>
         <div class="col">
             <label asp-for="Product.Description"></label>
@@ -34,22 +35,30 @@
         <div class="col">
             <label asp-for="Product.Discount"></label>
             <input class="form-control" asp-for="Product.Discount">
+            <span asp-validation-for="Product.Discount" class="text-danger"></span>
+
         </div>
         <div class="col">
             <label asp-for="Product.Price"></label>
             <input class="form-control" asp-for="Product.Price">
+            <span asp-validation-for="Product.Price" class="text-danger"></span>
+
         </div>
     </div>
     <div class="row">
         <div class="col">
             <label asp-for="Product.Quantity"></label>
             <input class="form-control" asp-for="Product.Quantity">
+            <span asp-validation-for="Product.Quantity" class="text-danger"></span>
+
         </div>
         <div class="col">
             <label asp-for="Product.CategoryId"></label>
             <select class="form-control" asp-for="Product.CategoryId" asp-items="Model.CategoryTypes">
                 <option value="">...Select...</option>
             </select>
+            <span asp-validation-for="Product.CategoryId" class="text-danger"></span>
+
         </div>
     </div>
     <div class="row">

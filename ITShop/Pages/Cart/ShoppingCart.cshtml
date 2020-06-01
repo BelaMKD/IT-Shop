@@ -76,5 +76,16 @@
         </tr>
     </tbody>
 </table>
-<a class="btn btn-success" asp-page="/Order/Checkout">Checkout</a>
+
+<div class="row">
+    <div class="col">
+        <div class="d-flex flex-lg-row flex-column align-items-start justify-content-start">
+            <div class="button"><a asp-page="/Index">Continue shopping</a></div>
+            <div class="ml-lg-auto">
+                <div class="button d-inline-block"><button id="buttonId">Clear cart</button></div>
+                <div class="button  d-inline-block"><a asp-page="/Order/Checkout">Checkout</a></div>
+            </div>
+        </div>
+    </div>
+</div>
 <span class="alert alert-danger" style="visibility:@(Model.Message!=null ? "visible" : "hidden")">@Model.Message</span>
