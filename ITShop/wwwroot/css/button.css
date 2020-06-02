@@ -19,7 +19,7 @@ a:hover, a:visited, a:active, a:link, button:hover, button:visited, button:activ
 
 
 .button {
-    width: 178px;
+    width: 200px;
     height: 61px;
     background: none;
     text-align: center;
@@ -31,7 +31,7 @@ a:hover, a:visited, a:active, a:link, button:hover, button:visited, button:activ
 }
 
 #buttonId {
-    width: 178px;
+    width: 200px;
     height: 61px;
     background: none;
     text-align: center;
@@ -91,6 +91,45 @@ a:hover, a:visited, a:active, a:link, button:hover, button:visited, button:activ
     -webkit-transition: -webkit-transform 0.3s, opacity 0.3s, background-color 0.3s;
     transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
 }
+
+.danger:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 100%;
+    background: #FFFFFF;
+    background-color: #dc3545 !important;
+    z-index: 0;
+    opacity: 0;
+    -webkit-transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+    transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s, background-color 0.3s;
+    transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
+}
+
+.warning:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 150%;
+    height: 100%;
+    background: #FFFFFF;
+    background-color: #f6c23e !important;
+    z-index: 0;
+    opacity: 0;
+    -webkit-transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+    transform: rotate3d(0, 0, 1, -45deg) translate3d(0, -3em, 0);
+    -webkit-transform-origin: 0% 100%;
+    transform-origin: 0% 100%;
+    -webkit-transition: -webkit-transform 0.3s, opacity 0.3s, background-color 0.3s;
+    transition: transform 0.3s, opacity 0.3s, background-color 0.3s;
+}
+
 
 .button:hover::after {
     opacity: 1;

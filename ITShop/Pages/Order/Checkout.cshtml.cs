@@ -54,6 +54,7 @@ namespace ITShop
         } 
         public async Task<IActionResult> OnPost()
         {
+            Memberships = membershipData.GetMemberships();
             ApplicationUser = await userManager.GetUserAsync(User);
             if (ModelState.IsValid)
             {

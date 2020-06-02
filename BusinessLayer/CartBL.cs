@@ -12,7 +12,7 @@ namespace BusinessLayer
             var total = 0.0;
             foreach (var cartItem in cartItems)
             {
-                total += cartItem.Quantity * cartItem.Product.Price;
+                total += cartItem.Quantity * cartItem.Product.TotalPrice;
             }
             if (discount!=0)
             {

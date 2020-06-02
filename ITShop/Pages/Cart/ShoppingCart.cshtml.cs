@@ -152,6 +152,14 @@ namespace ITShop
             CartItems = HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems").ToList();
             return RedirectToPage("./ShoppingCart");
         }
+        public IActionResult OnPostClearCart()
+        {
+            if (HttpContext.Session.GetObjectFromJson<List<ShoppingCart>>("CartItems") != null)
+            {
+                HttpContext.Session.Remove("CartItems");
+            }
+            return Page();
+        }
     }
     public static class SessionExtensions
     {

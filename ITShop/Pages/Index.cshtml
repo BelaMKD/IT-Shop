@@ -7,6 +7,7 @@
 
 @section Styles{
     <link href="~/css/index.css" rel="stylesheet" />
+    <link href="~/css/pricingTable.css" rel="stylesheet" />
 }
 
 @section Index{
@@ -48,15 +49,57 @@
         </div>
     </header>
 }
+
+
+<div class="headerND">
+
+    <div class="text-effect">
+        <span>MEMBERSHIPS</span>
+    </div>
+
+</div>
+
+<div class="demo" style="margin:56px 0">
+    <div class="container">
+        <div class="row">
+            @for (int i = 0; i < Model.Memberships.Count(); i++)
+            {
+
+                <div id="myDiv" class="col-md-4 col-sm-6">
+                    <div class="pricingTable green">
+                        <div class="pricingTable-header">
+                            <h3 class="title">@Model.Memberships[i].Type</h3>
+                        </div>
+                        <div class="price-value">
+                            <span class="amount">$ @Model.Memberships[i].Price</span>
+                        </div>
+                        <ul class="pricing-content">
+                            <li>Discount on all products:</li>
+                            <li>@Model.Memberships[i].Discount.ToString("P")</li>
+                        </ul>
+                        <div class="pricingTable-signup">
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+
+
 <a name="headerNew">
     <div class="headerND">
 
-        <h1 class="my-4">New Products</h1>
+        <div class="text-effect">
+            <span>NEW PRODUCTS</span>
+        </div>
 
     </div>
 </a>
 
-<div class="row">
+<div class="row" style="margin:60px 0">
 
 
     @foreach (var product in Model.NewProducts)
@@ -105,10 +148,13 @@
 
 <a name="headerDiscount">
     <div class="headerND">
-        <h1 class="my-4">Discounted products</h1>
+        
+        <div class="text-effect">
+            <span>DISCOUNTED PRODUCTS</span>
+        </div>
     </div>
 </a>
-<div class="row">
+<div class="row" style="margin:60px 0">
 
     @foreach (var product in Model.DiscountedProducts)
     {

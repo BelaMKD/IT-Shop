@@ -15,14 +15,17 @@ namespace ITShop.Pages
     {
         private readonly ILogger<IndexModel> _logger;
         private readonly IProductData productData;
+        private readonly IMembershipData membershipData;
 
         public IEnumerable<Product> NewProducts { get; set; }
         public IEnumerable<Product> DiscountedProducts { get; set; }
+        public List<Membership> Memberships { get; set; }
         public ProgressBar ProgressBarMetod { get; set; }
-        public IndexModel(ILogger<IndexModel> logger, IProductData productData)
+        public IndexModel(ILogger<IndexModel> logger, IProductData productData, IMembershipData membershipData)
         {
             _logger = logger;
             this.productData = productData;
+            this.membershipData = membershipData;
         }
 
         public void OnGet()
@@ -30,13 +33,7 @@ namespace ITShop.Pages
             NewProducts = productData.GetFirtsFiveNewProducts();
             DiscountedProducts = productData.GetFirstFiveDiscountedProducts();
             ProgressBarMetod = new ProgressBar();
-        }
-        public int CalculateProgressBar(int quantity)
-        {
-            var maxQuantity = 50;
-            var percent = (double) quantity / maxQuantity;
-
-            return Convert.ToInt32(percent * 100);
+            Memberships = membershipData.GetMemberships();
         }
     }
 }

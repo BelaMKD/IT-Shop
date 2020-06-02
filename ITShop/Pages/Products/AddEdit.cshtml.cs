@@ -68,7 +68,6 @@ namespace ITShop
                     {
                         file.CopyTo(stream);
                         stream.Close();
-
                     }
                     Product.ImagePath = imagePath;
                 }
@@ -80,7 +79,16 @@ namespace ITShop
                 }
                 else
                 {
-                    productData.UpdateProduct(Product);
+                    var tempProduct = productData.GetProductById(Product.Id);
+                    tempProduct.Name = Product.Name;
+                    tempProduct.Description = Product.Description;
+                    tempProduct.Category = Product.Category;
+                    tempProduct.Quantity = Product.Quantity;
+                    tempProduct.Discount = Product.Discount;
+                    tempProduct.Price = Product.Price;
+                    tempProduct.TotalPrice = Product.TotalPrice;
+                    tempProduct.ImagePath = Product.ImagePath;
+                    productData.UpdateProduct(tempProduct);
                     TempData["Message"] = "Product is updated";
                 }
                 productData.Commit();

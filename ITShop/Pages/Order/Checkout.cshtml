@@ -5,8 +5,8 @@
 }
 
 @section Styles{
-    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
-    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <link href="~/css/button.css" rel="stylesheet" />
+    <link href="~/css/pricingTable.css" rel="stylesheet" />
     <style>
         .cardNumClass {
             display: none;
@@ -14,7 +14,6 @@
     </style>
 }
 
-<h1>Checkout</h1>
 
 <form method="post">
     <input type="hidden" asp-for="Order.Id" />
@@ -44,33 +43,40 @@
     </div>
     @if (!Model.ApplicationUser.IsMember)
     {
+        <div class="demo" style="margin:16px 0 0 0">
+            <div class="container">
+                <div class="row">
+                    @for (int i = 0; i < Model.Memberships.Count(); i++)
+                    {
 
-        <div class="row">
-            @for (int i = 0; i < Model.Memberships.Count(); i++)
-            {
-                <div class="col-lg-4 mb-4">
-                    <div class="card h-100">
-                        <h3 class="card-header">@Model.Memberships[i].Type</h3>
-                        <div class="card-body">
-                            <div class="display-4">$ @Model.Memberships[i].Price</div>
-                            <div class="font-italic">per month</div>
+                        <div id="myDiv" class="col-md-4 col-sm-6">
+                            <div class="pricingTable green">
+                                <div class="pricingTable-header">
+                                    <h3 class="title">@Model.Memberships[i].Type</h3>
+                                </div>
+                                <div class="price-value">
+                                    <span class="amount">$ @Model.Memberships[i].Price</span>
+                                </div>
+                                <ul class="pricing-content">
+                                    <li class="disable">Discount on all products:</li>
+                                    <li>@Model.Memberships[i].Discount.ToString("P")</li>
+                                    <li class="disable">For this order you will pay:</li>
+                                    <li>$ @(String.Format("{0:0.00}",Model.Order.OrderTotal*(1-Model.Memberships[i].Discount))) + @Model.Memberships[i].Price</li>
+                                </ul>
+                                <div class="pricingTable-signup">
+                                    <input style="width:2em; height:2em; color:green" type="radio" asp-for="Selected" value="@Model.Memberships[i].Id" />
+                                </div>
+                            </div>
                         </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">Discount on all products: @Model.Memberships[i].Discount.ToString("P")</li>
-                            <li class="list-group-item"></li>
-                            <li class="list-group-item">For this order you will pay: $ @(Model.Order.OrderTotal*(1-Model.Memberships[i].Discount)) + @Model.Memberships[i].Price</li>
-                            <li class="list-group-item">
-                                <input type="radio" asp-for="Selected" value="@Model.Memberships[i].Id" />
-                            </li>
-                        </ul>
-                    </div>
+                    }
                 </div>
-            }
+            </div>
         </div>
+        <div class="text-success">*Hold down Ctrl key to uncheck</div>
     }
     else
     {
-        <table class="table table-dark">
+        <table class="table table-dark" style="margin-top:16px">
 
             <tbody>
                 <tr>
@@ -89,10 +95,15 @@
         </table>
     }
 
-    <button class="btn btn-success" type="submit">Order</button>
+    <div class="button d-flex justify-content-center" style="margin:0 auto">
+        <button id="buttonId" type="submit">Order <i class="fa fa-check-double"></i></button>
+    </div>
 </form>
 
 @section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+
     <script>
         var radios = document.getElementsByTagName('input');
         for (i = 0; i < radios.length; i++) {
