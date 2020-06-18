@@ -30,15 +30,6 @@ namespace ITShop
         {
             Product = productData.DeleteProduct(id);
             var path = Path.Combine(@"wwwroot/images/", $"{Product.Category.Type}/", $"{Product.Name}.jpg");
-            using (StreamWriter sw = new StreamWriter(path, true))
-            {
-                sw.Close();
-                if (System.IO.File.Exists(path))
-                {
-                    System.IO.File.Delete(path);
-                }
-                sw.Close();
-            }
             if (Product == null)
             {
                 return RedirectToPage("./List");
@@ -47,6 +38,15 @@ namespace ITShop
             {
                 TempData["Message"] = "This product cannot be deleted, because he is ordered by some customer!";
                 return RedirectToPage("./List");
+            }
+            using (StreamWriter sw = new StreamWriter(path, true))
+            {
+                sw.Close();
+                if (System.IO.File.Exists(path))
+                {
+                    System.IO.File.Delete(path);
+                }
+                sw.Close();
             }
             TempData["Message"] = "Product is deleted";
             productData.Commit();

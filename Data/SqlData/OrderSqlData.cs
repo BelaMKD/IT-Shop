@@ -34,7 +34,7 @@ namespace Data.SqlData
                 .ThenInclude(z => z.Product)
                 .ThenInclude(y=>y.Category)
                 .Include(x => x.User)
-                .OrderBy(x => x.User.Email)
+                .OrderByDescending(x => x.DateOrdered)
                 .ToList();
                 
         }

@@ -241,10 +241,9 @@
 .result {
     border-radius: 5px;
     background-color: #343a40;
-    color: black;
+    color: white;
     margin: 1% 0;
     padding: 1px 10px;
-    background-image: linear-gradient(to right,#343a40, #fff, #343a40);
 }
 
 .result h3 {
@@ -254,12 +253,13 @@
 .selectTag {
     text-align-last: center;
     font-weight: bold;
-    background-image: linear-gradient(to right,#0069d9, #fff);
-    border-color: #1861ac;
+    background-image: linear-gradient(to right,#28a745, #fff);
+    border-color: #343a40;
 }
 
 .btnTag {
-    background-image: linear-gradient(to left,#0069d9, #fff);
+    background-image: linear-gradient(to left,#28a745, #fff);
     color: #495057;
     font-weight: bold;
+    border-color: #343a40;
 }
